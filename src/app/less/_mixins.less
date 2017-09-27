@@ -1,0 +1,111 @@
+
+@import "_variables";
+
+.visuallyhidden {
+  position: absolute;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  height: 1px; width: 1px;
+  margin: -1px; padding: 0; border: 0;
+}
+
+.shadow-border(
+	@opacity: 5,
+	@color: @default-dark-text-color,
+	@x: 0,
+	@y: 0,
+	@blur: 0,
+	@spread: 1px
+	) {
+	// @opacity is expressed as percent: 5 == 5% (not as decimal from 0 to 1)
+	border: 0;
+	box-shadow: @x @y @blur @spread fade(@color, @opacity) inset;
+}
+
+.shadow-border-top(@opacity: 5, @color: @default-dark-text-color) {
+	.shadow-border(@opacity, @color, 0, 1px, 0, 0);
+}
+
+.shadow-border-right(@opacity: 5, @color: @default-dark-text-color) {
+	.shadow-border(@opacity, @color, -1px, 0, 0, 0);
+}
+
+.shadow-border-bottom(@opacity: 5, @color: @default-dark-text-color) {
+	.shadow-border(@opacity, @color, 0, -1px, 0, 0);
+}
+
+.shadow-border-left(@opacity: 5, @color: @default-dark-text-color) {
+	.shadow-border(@opacity, @color, 1px, 0, 0, 0);
+}
+
+// SHADOWS
+.small-shadow() {
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.15);
+}
+
+.title() {
+	color: @default-dark-text-color;
+	font-size: @title-size;
+	font-weight: @strong-font-weight;
+	letter-spacing: 0.1px;
+	line-height: 1.11;
+}
+
+.header() {
+	font-size: @header-size;
+	font-weight: @emphatic-font-weight;
+	line-height: 1.08;
+	letter-spacing: 0.2px;
+	color: @default-dark-text-color;
+}
+
+.subheader() {
+	font-size: @subheader-size;
+	font-weight: @emphatic-font-weight;
+	line-height: 1.22;
+	letter-spacing: 0.2px;
+	color: @default-dark-text-color;
+}
+
+.small-header() {
+	font-size: @small-header-size;
+	font-weight: @strong-font-weight;
+	line-height: 1.54;
+	letter-spacing: 1px;
+	color: @default-dark-text-color;
+	text-transform: uppercase;
+}
+
+.button() {
+	.shadow-border(15);
+  	background: @default-button-bkg-color;
+	border-radius: 2px;
+  	color: @default-dark-text-color;
+  	display: inline-block;
+	font-size: @action-size;
+	font-weight: @emphatic-font-weight;
+	height: auto;
+	line-height: 1.14em;
+  	outline: 0;
+	padding: @smaller-padding @default-padding;
+  	text-decoration: none;
+	user-select: none;
+
+  &:hover,
+  &:focus {
+	.shadow-border(100, @primary-color);
+	background: @hover-button-bkg-color;
+	color: @primary-color;
+    text-decoration: none;
+  }
+  
+  &:active {
+	  background: @primary-color;
+	  color: @default-button-bkg-color;
+  }
+
+  &:disabled {
+	  background: @disabled-button-bkg-color;
+	  color: @default-button-bkg-color;
+  }
+}
