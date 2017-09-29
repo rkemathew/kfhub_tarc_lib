@@ -1,0 +1,151 @@
+@import "../less/_mixins";
+@import "../less/_icons";
+@import '../less/_breakpoints';
+@import "../less/_bootstrap-overrides";
+@import "../less/proxima-nova";
+
+footer#footer-region {
+    position: fixed;
+    bottom: 0px;
+    margin-top: 0;
+    border-top: solid @footer-border-size @footer-border-color;
+  }
+  footer#footer-region .nav-footer .navbar-inner {
+    border: 1px solid #173763;
+    background-color: #1e4881;
+    height: 45px;
+    background-image: -moz-linear-gradient(top, #235395, #173763);
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#235395), to(#173763));
+    background-image: -webkit-linear-gradient(top, #235395, #173763);
+    background-image: -o-linear-gradient(top, #235395, #173763);
+    background-image: linear-gradient(to bottom, #235395, #173763);
+    background-repeat: repeat-x;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff235395', endColorstr='#ff173763', GradientType=0);
+  }
+  footer#footer-region .btn-primary,#header-region .btn-primary  {
+    color: #ffffff;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+    background-color: #1e4881;
+    background-image: -moz-linear-gradient(top, #235395, #173763);
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#235395), to(#173763));
+    background-image: -webkit-linear-gradient(top, #235395, #173763);
+    background-image: -o-linear-gradient(top, #235395, #173763);
+    background-image: linear-gradient(to bottom, #235395, #173763);
+    background-repeat: repeat-x;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff235395', endColorstr='#ff173763', GradientType=0);
+    border-color: #173763 #173763 #091525;
+    border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+    filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
+    -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+  }
+  footer#footer-region .navbar.nav-footer .btn-primary {
+    border: 1px solid #1b2b46;
+    border: 1px solid rgba(0, 0, 0, 0.4);
+  }
+  footer#footer-region .navbar button.btn.btn-large {
+    margin-top: 20px;
+  }
+  footer#footer-region .navbar.nav-footer .navbar-inner {
+    overflow-x: hidden;
+    overflow-y: hidden;
+  }
+  footer#footer-region .navbar-fixed-bottom {
+    bottom: 0;
+    width: 100%;
+  }
+  footer#footer-region .nav-footer.sub-footer ul.horizontal-ul li a {
+    color: #a3a4a6;
+    letter-spacing: 1px;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: inherit;
+  }
+  footer#footer-region .nav-footer.sub-footer ul.horizontal-ul li a:hover {
+    text-decoration: underline;
+  }
+  footer#footer-region .navbar.nav-footer .navbar-inner .list-float-center {
+    margin-left: -9px;
+    margin-top: -11px;
+  }
+  footer#footer-region .list-float-center li {
+    width: auto;
+    height: 50px;
+    display: block;
+    float: left;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    position: relative;
+    right: 50%;
+  }
+  footer#footer-region .list-float-center li:hover,footer#footer-region .list-float-center li a:hover{
+      background-color:transparent;
+      background:transparent;
+      color:inherit;
+      border:none;
+  }
+  footer#footer-region .navbar.nav-footer .logo-nav {
+    background-position: center 30px;
+    background: url('/assets/logo-nav.png') center 29px no-repeat;
+  }
+  footer#footer-region .list-float-center {
+    clear: left;
+    float: left;
+    position: relative;
+    left: 50%;
+    text-align: center;
+  }
+  footer#footer-region .list-float-right {
+    clear: right;
+    float: right;
+    // position: relative;
+  }
+  footer#footer-region .float-left {
+    clear: left;
+    float: left;
+    // position: relative;
+  }
+  footer#footer-region .legal {
+    margin: 15px;
+    color: white;
+    font-size: 10px;
+  }
+  footer#footer-region .nav-footer.sub-footer ul.horizontal-ul li {
+    color: #6d7279;
+    margin: 0 0 0 20px;
+    line-height: 43px;
+    height: 40px;
+    display: inline-block;
+  }
+  footer#footer-region .navbar.nav-footer .navbar-inner,
+  footer#footer-region .navbar.nav-footer .container,
+  footer#footer-region .navbar.nav-footer h2 {
+    height: 60px;
+    padding-right: 16px;
+    width: @_site-width;
+  }
+  footer#footer-region h2.logo-nav {
+    width: 165px;
+  }
+  footer#footer-region .nav-footer.sub-footer ul.horizontal-ul {
+    margin: 0;
+    padding: 0;
+  }
+  footer#footer-region .nav-footer.sub-footer > .container {
+    overflow: hidden;
+  }
+  footer#footer-region .nav-footer.sub-footer {
+    height: 40px;
+    background-color: @_darker-black;
+  }
+  
+  .nav-footer {
+    min-height: 44px;
+  }
+  .footer-outer {
+    position: relative;
+    clear: both;
+    display: block;
+    overflow: hidden;
+  }
