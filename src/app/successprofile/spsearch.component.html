@@ -1,124 +1,125 @@
 <div class="container page-container search-page-container">
-            <header class="masthead list-page">
-                <div class="avatar">
-                    <img src="/i/icon-success-profiles.svg" alt="avatar">
+    <header class="masthead list-page">
+        <div class="avatar">
+            <img src="/assets/icon-success-profiles.svg" alt="avatar">
+        </div>
+        <div class="body">
+            <h1 class="title">{{ 'SuccessProfilesPageTitle' | translate }}</h1>
+            <p>{{ 'SuccessProfilesPageDescription' | translate }}</p>
+        </div>
+    </header>
+    <div class="main-background">
+        <div class="main-container">
+            <div class="search-filter-section">
+<!--
+                <div class="search-filter-group">
+                    <dropdown-multiselect checked-options="selectedGradeFilters" checked-options-changed="filtersChanged('grade', value)" class-name="search-filter"
+                        options="allGradesFilters" prompt="{{'Grades' | translate}}">
+                    </dropdown-multiselect>
+                    <dropdown-multiselect checked-options="selected LevelFilters" checked-options-changed="filtersChanged('level', value)" class-name="search-filter"
+                        options="allLevelsFilters" prompt="{{'Levels' | translate}}">
+                    </dropdown-multiselect>
+                    <dropdown-multiselect checked-options="selectedFunctionFilters" checked-options-changed="filtersChanged('function', value)"
+                        class-name="search-filter" options="allFunctionsFilters" prompt="{{'Functions' | translate}}">
+                    </dropdown-multiselect>
                 </div>
-                <div class="body">
-                    <h1 class="title">{{ 'SuccessProfilesPageTitle' | translate }}</h1>
-                    <p>{{ 'SuccessProfilesPageDescription' | translate }}</p>
+-->
+                <div class="input-group">
+                    <div class="input-backdrop"></div>
+                    <input type="text" class="search-profile-bar form-control" ng-model="searchString" ng-change="doSearch()" />
+                    <div ng-show="!searchString" class="placehold-text">
+                        <img src="/assets/search.svg" /> {{ 'SearchSuccessProfiles' | translate }}</div>
+                    </div>
+
+                    <div class="applied-filters-well" ng-show="appliedFilters.length">
+                    <div class="applied-filter" ng-repeat="filter in appliedFilters">
+                        <span class="remove-filter" ng-click="removeFilter($index, filter)">X</span>
+                        <span class="filter-content">{{ filter.type | translate }}: {{ filter.content.value }}</span>
+                    </div>
+                    <a class="filter-option-clear" ng-show="appliedFilters.length" ng-click="removeAllFilter()">{{ 'ClearAllFilters' | translate}}</a>
                 </div>
-            </header>
-        <!--
-            <div class="main-background">
-                <div class="main-container">
-                    <div class="search-filter-section">
-                        <div class="search-filter-group">
-                            <dropdown-multiselect checked-options="selectedGradeFilters" checked-options-changed="filtersChanged('grade', value)" class-name="search-filter"
-                                options="allGradesFilters" prompt="{{'Grades' | translate}}">
-                            </dropdown-multiselect>
-                            <dropdown-multiselect checked-options="selected LevelFilters" checked-options-changed="filtersChanged('level', value)" class-name="search-filter"
-                                options="allLevelsFilters" prompt="{{'Levels' | translate}}">
-                            </dropdown-multiselect>
-                            <dropdown-multiselect checked-options="selectedFunctionFilters" checked-options-changed="filtersChanged('function', value)"
-                                class-name="search-filter" options="allFunctionsFilters" prompt="{{'Functions' | translate}}">
-                            </dropdown-multiselect>
-                        </div>
-        
-                        <div class="input-group">
-                            <div class="input-backdrop"></div>
-                            <input type="text" class="search-profile-bar form-control" ng-model="searchString" ng-change="doSearch()" />
-                            <div ng-show="!searchString" class="placehold-text">
-                                <img src="i/search.svg" /> {{ 'SearchSuccessProfiles' | translate}}</div>
-                            </div>
-        
-                            <div class="applied-filters-well" ng-show="appliedFilters.length">
-                            <div class="applied-filter" ng-repeat="filter in appliedFilters">
-                                <span class="remove-filter" ng-click="removeFilter($index, filter)">X</span>
-                                <span class="filter-content">{{ filter.type | translate }}: {{filter.content.value}}</span>
-                            </div>
-                            <a class="filter-option-clear" ng-show="appliedFilters.length" ng-click="removeAllFilter()">{{ 'ClearAllFilters' | translate}}</a>
+            </div>
+
+            <div class="search-result-section">
+                <div class="action-dropdown-section">
+                    <div class="filter-title">
+                        <span ng-if="searchLoading && searchResults.length == 0"> &nbsp; </span>
+                        <span ng-if="!searchLoading && searchResults.length == 0"> {{ 'NoResultsFound' | translate }} </span>
+                        <div class="search-result-data" ng-if="searchResults.length">
+                            {{ 'LabelShowing' | translate }} {{ searchResults.length }} of {{ pagingInfo.totalResultRecords }} {{ 'BCSuccessProfiles' | translate }}
                         </div>
                     </div>
-                    <div class="search-result-section">
-                        <div class="action-dropdown-section">
-                            <div class="filter-title">
-                                <span ng-if="searchLoading && searchResults.length == 0"> &nbsp; </span>
-                                <span ng-if="!searchLoading && searchResults.length == 0"> {{'NoResultsFound' | translate}} </span>
-                                <div class="search-result-data" ng-if="searchResults.length">
-                                    {{ 'LabelShowing' | translate }} {{searchResults.length}} of {{pagingInfo.totalResultRecords}} {{ 'BCSuccessProfiles' | translate }}
-                                </div>
+                </div>
+
+                <div class="result-table-well">
+                    <table class="table list-table table-striped table-hover" ng-show="listView">
+                        <thead>
+                        <tr>
+                            <th class="name" ng-click="sortResults('JOB_TITLE')">
+                                <img class="sort-up-arrow" ng-show="sortingInOrder('JOB_TITLE') === 'ASC'" src="/assets/sort-up-arrow@3x.png" />
+                                <img class="sort-down-arrow" ng-class="sortingInOrder('JOB_TITLE') !== 'DESC' ? 'inactive' : null" ng-show="sortingInOrder('JOB_TITLE') !== 'ASC'"
+                                    src="/assets/sort-down-arrow@3x.png" /> {{ 'Name' | translate }}
+                            </th>
+                            <th ng-click="sortResults('GRADES')">
+                                <img class="sort-up-arrow" ng-show="sortingInOrder('GRADES') === 'ASC'" src="/assets/sort-up-arrow@3x.png" />
+                                <img class="sort-down-arrow" ng-class="sortingInOrder('GRADES') !== 'DESC' ? 'inactive' : null" ng-show="sortingInOrder('GRADES') !== 'ASC'"
+                                    src="/assets/sort-down-arrow@3x.png" /> {{ 'Grade' | translate }}
+                            </th>
+                            <th ng-click="sortResults('LEVELS')">
+                                <img class="sort-up-arrow" ng-show="sortingInOrder('LEVELS') === 'ASC'" src="/assets/sort-up-arrow@3x.png" />
+                                <img class="sort-down-arrow" ng-class="sortingInOrder('LEVELS') !== 'DESC' ? 'inactive' : null" ng-show="sortingInOrder('LEVELS') !== 'ASC'"
+                                    src="/assets/sort-down-arrow@3x.png" /> {{ 'Level' | translate }}
+                            </th>
+                            <th ng-click="sortResults('FUNCTIONS')">
+                                <img class="sort-up-arrow" ng-show="sortingInOrder('FUNCTIONS') === 'ASC'" src="/assets/sort-up-arrow@3x.png" />
+                                <img class="sort-down-arrow" ng-class="sortingInOrder('FUNCTIONS') !== 'DESC' ? 'inactive' : null" ng-show="sortingInOrder('FUNCTIONS') !== 'ASC'"
+                                    src="/assets/sort-down-arrow@3x.png" /> {{ 'Function' | translate }}
+                            </th>
+                            <th ng-click="sortResults('CREATED_BY')">
+                                <img class="sort-up-arrow" ng-show="sortingInOrder('CREATED_BY') === 'ASC'" src="/assets/sort-up-arrow@3x.png" />
+                                <img class="sort-down-arrow" ng-class="sortingInOrder('CREATED_BY') !== 'DESC' ? 'inactive' : null" ng-show="sortingInOrder('CREATED_BY') !== 'ASC'"
+                                    src="/assets/sort-down-arrow@3x.png" /> {{ 'CreatedBy' | translate }}
+                            </th>
+                            <th ng-click="sortResults('CREATED_ON')" class="date-title">
+                                <img class="sort-up-arrow" ng-show="sortingInOrder('CREATED_ON') === 'ASC'" src="/assets/sort-up-arrow@3x.png" />
+                                <img class="sort-down-arrow" ng-class="sortingInOrder('CREATED_ON') !== 'DESC' ? 'inactive' : null" ng-show="sortingInOrder('CREATED_ON') !== 'ASC'"
+                                    src="/assets/sort-down-arrow@3x.png" /> {{ 'Date' | translate }}
+                            </th>
+                            <th class="more-actions-header">&nbsp;</th>
+                        </tr>
+                        </thead>
+
+                        <tbody>
+                        <tr ng-repeat="profile in searchResults" ng-class="{'row-selected': profile.selected}">
+                            <td class="title-column">
+                                <img class="bic-icon" ng-show="profile.isTemplateJob === true" src="/assets/best-in-class-icon.png" />
+                                <img class="bic-icon" ng-show="profile.isTemplateJob === false" src="/assets/icon-custom-blue.svg" />
+                                <a href="#/talentarchitect/spdetail/{{ profile.id }}">{{ profile.title }}</a>
+                            </td>
+                            <td class="grade-column">{{ profile.standardHayGrade }}</td>
+                            <td class="level-column">{{ profile.levelName }}</td>
+                            <td class="function-column">{{ profile.familyName }}</td>
+                            <td class="created-by-column">
+                                &nbsp;{{ profile.source[0].firstName }} {{ profile.source[0].lastName }}
+                            </td>
+                            <td class="date-column">{{ profile.source[0].effectiveDateTime | date: 'MMM dd, yyyy' }}</td>
+                            <td class="last-colunm">
+                            <div class="actions-toggle" data-toggle="dropdown">
+                                <img src="/assets/action.svg" />
                             </div>
-                        </div>
-                        <div class="result-table-well">
-                            <table class="table list-table table-striped table-hover" ng-show="listView">
-                                <thead>
-                                <tr>
-                                    <th class="name" ng-click="sortResults('JOB_TITLE')">
-                                        <img class="sort-up-arrow" ng-show="sortingInOrder('JOB_TITLE') === 'ASC'" src="i/sort-up-arrow@3x.png" />
-                                        <img class="sort-down-arrow" ng-class="sortingInOrder('JOB_TITLE') !== 'DESC' ? 'inactive' : null" ng-show="sortingInOrder('JOB_TITLE') !== 'ASC'"
-                                            src="i/sort-down-arrow@3x.png" /> {{ 'Name' | translate }}
-                                    </th>
-                                    <th ng-click="sortResults('GRADES')">
-                                        <img class="sort-up-arrow" ng-show="sortingInOrder('GRADES') === 'ASC'" src="i/sort-up-arrow@3x.png" />
-                                        <img class="sort-down-arrow" ng-class="sortingInOrder('GRADES') !== 'DESC' ? 'inactive' : null" ng-show="sortingInOrder('GRADES') !== 'ASC'"
-                                            src="i/sort-down-arrow@3x.png" /> {{ 'Grade' | translate }}
-                                    </th>
-                                    <th ng-click="sortResults('LEVELS')">
-                                        <img class="sort-up-arrow" ng-show="sortingInOrder('LEVELS') === 'ASC'" src="i/sort-up-arrow@3x.png" />
-                                        <img class="sort-down-arrow" ng-class="sortingInOrder('LEVELS') !== 'DESC' ? 'inactive' : null" ng-show="sortingInOrder('LEVELS') !== 'ASC'"
-                                            src="i/sort-down-arrow@3x.png" /> {{ 'Level' | translate }}
-                                    </th>
-                                    <th ng-click="sortResults('FUNCTIONS')">
-                                        <img class="sort-up-arrow" ng-show="sortingInOrder('FUNCTIONS') === 'ASC'" src="i/sort-up-arrow@3x.png" />
-                                        <img class="sort-down-arrow" ng-class="sortingInOrder('FUNCTIONS') !== 'DESC' ? 'inactive' : null" ng-show="sortingInOrder('FUNCTIONS') !== 'ASC'"
-                                            src="i/sort-down-arrow@3x.png" /> {{ 'Function' | translate }}
-                                    </th>
-                                    <th ng-click="sortResults('CREATED_BY')">
-                                        <img class="sort-up-arrow" ng-show="sortingInOrder('CREATED_BY') === 'ASC'" src="i/sort-up-arrow@3x.png" />
-                                        <img class="sort-down-arrow" ng-class="sortingInOrder('CREATED_BY') !== 'DESC' ? 'inactive' : null" ng-show="sortingInOrder('CREATED_BY') !== 'ASC'"
-                                            src="i/sort-down-arrow@3x.png" /> {{ 'CreatedBy' | translate }}
-                                    </th>
-                                    <th ng-click="sortResults('CREATED_ON')" class="date-title">
-                                        <img class="sort-up-arrow" ng-show="sortingInOrder('CREATED_ON') === 'ASC'" src="i/sort-up-arrow@3x.png" />
-                                        <img class="sort-down-arrow" ng-class="sortingInOrder('CREATED_ON') !== 'DESC' ? 'inactive' : null" ng-show="sortingInOrder('CREATED_ON') !== 'ASC'"
-                                            src="i/sort-down-arrow@3x.png" /> {{ 'Date' | translate }}
-                                    </th>
-                                    <th class="more-actions-header">&nbsp;</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr ng-repeat="profile in searchResults" ng-class="{'row-selected': profile.selected}">
-                                    <td class="title-column">
-                                        <img class="bic-icon" ng-show="profile.isTemplateJob === true" src="i/best-in-class-icon.png" />
-                                        <img class="bic-icon" ng-show="profile.isTemplateJob === false" src="i/icon-custom-blue.svg" />
-                                        <a href="#/talentarchitect/spdetail/{{ profile.id }}">{{profile.title}}</a>
-                                    </td>
-                                    <td class="grade-column">{{profile.standardHayGrade}}</td>
-                                    <td class="level-column">{{profile.levelName}}</td>
-                                    <td class="function-column">{{profile.familyName}}</td>
-                                    <td class="created-by-column">
-                                        &nbsp;{{profile.source[0].firstName}} {{profile.source[0].lastName}}
-                                    </td>
-                                    <td class="date-column">{{profile.source[0].effectiveDateTime | date: 'MMM dd, yyyy'}}</td>
-                                    <td class="last-colunm">
-                                    <div class="actions-toggle" data-toggle="dropdown">
-                                        <img src="i/action.svg" />
-                                    </div>
-                                    <profile-submenu profile="profile" subscriptions="subscriptions"></profile-submenu>
-                                    </td>
-                                </tr>
-                                </tbody>
-                            </table>
-                            <div ng-if="searchLoading && searchResults.length == 0" class="noresults">&nbsp;</div>
-                            <div ng-if="!searchLoading && searchResults.length == 0" class="noresults">
-                                {{ "SPSearch_NoResults" | translate }}
-                            </div>
-                        </div>
+                            <!-- <profile-submenu profile="profile" subscriptions="subscriptions"></profile-submenu> -->
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <div ng-if="searchLoading && searchResults.length == 0" class="noresults">&nbsp;</div>
+                    <div ng-if="!searchLoading && searchResults.length == 0" class="noresults">
+                        {{ "SPSearch_NoResults" | translate }}
                     </div>
                 </div>
             </div>
-        
-            <div class="pp-container"></div>
-        -->
         </div>
+    </div>
         
+    <div class="pp-container"></div>
+</div>
