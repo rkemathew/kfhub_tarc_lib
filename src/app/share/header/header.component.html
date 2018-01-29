@@ -1,33 +1,31 @@
-<header class="navbar-container common-navbar">
+<header id="navigation-bar" ng-controller="HeaderCtrl" class="navbar-container common-navbar">
     <nav class="navbar navbar-default navbar-fixed-top navbar-top-menu">
         <div class="container">
             <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false"
-                aria-controls="navbar">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" ng-click="redirectToTalent()" title="{{ appVersion }}">
-                <img src="/assets/korn-ferry-logo.jpg" alt="Korn Ferry">
-                <span>{{ 'Products' | translate }}</span>
-            </a>
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <div class="navbar-brand" ng-click="redirectToTalent()">
+                    <img alt="Korn Ferry" src="/assets/logo.svg" />
+                </div>
             </div>
             <div id="navbar" class="collapse navbar-collapse">
-            <ul class="nav navbar-nav pull-right" ng-hide="isLogin">
-                <li>
-                <a class="icon settings" ng-show="hasAdminRole()" ng-click="redirectToAdminModule()"></a>
-                </li>
-                <li>
-                <a class="icon user" ng-click="preferences()"></a>
-                </li>
-                <li>
-                <a class="icon logout" ng-click="logout()"></a>
-                </li>
-            </ul>
+                <ul class="nav navbar-nav pull-right" ng-hide="isLogin">
+                    <li><a class="icon settings" ng-show="hasAdminRole()" ng-click="redirectToAdminModule()"></a></li>
+                    <li><a class="icon user" ng-click="toggleMenu()"></a></li>
+                </ul>
+                <div class="menu" ng-show="showMenu">
+                    <div class="triangle"></div>
+                    <ul>
+                        <li ng-click="preferences()">{{ 'MyProfile' | translate }}</li>
+                        <li id="logout" ng-click="logout()">{{ 'Logout' | translate }}</li>
+                    </ul>
+                </div>
             </div>
         </div>
     </nav>
 </header>
-<div style="margin-bottom: 50px"></div> <!-- Force all contents to appear after ths header -->
+

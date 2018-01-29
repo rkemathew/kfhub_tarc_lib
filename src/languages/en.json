@@ -1,5 +1,9 @@
 {
-    "Products": "PRODUCTS",
+    "MyProfile": "My Profile",
+    "logout": "Logout",
+    "Privacy": "Privacy",
+    "Terms": "Terms",
+    "KornFerryLegal": "© Korn Ferry 2017 All Rights Reserved.",
     "SuccessProfilesPageTitle": "Success Profiles",
     "SuccessProfilesPageDescription": "To find a Success Profile, search for name or filter by function and level. To view the details of a Success Profile, click its name. From the Actions menu, you can create a job description or create a new success profile (clone).",
     "Grades": "Grades",
