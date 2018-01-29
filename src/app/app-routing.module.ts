@@ -2,10 +2,10 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { AppComponent } from './app.component';
+import { SPSearchComponent } from './successprofile/spsearch.component';
 
 const routes: Routes = [
-
-    // { path: 'heroes', component: HeroesComponent },
+    { path: 'spsearch', component: SPSearchComponent }
     // { path: 'detail/:id', component: HeroDetailComponent },
     // { path: 'dashboard', component: DashboardComponent },
     // { path: '', redirectTo: '/dashboard', pathMatch: 'full' }

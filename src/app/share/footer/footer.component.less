@@ -1,14 +1,55 @@
-@import "../less/_mixins";
-@import "../less/_icons";
-@import '../less/_breakpoints';
-@import "../less/_bootstrap-overrides";
-@import "../less/proxima-nova";
+@import "../less/app";
+
+.navbar-fixed-top {
+  z-index: 150;
+}
+.navbar-fixed-bottom {
+  z-index: 1030;
+}
+.navbar-fixed-top,
+.navbar-fixed-bottom {
+  position: fixed;
+  right: 0;
+  left: 0;
+  margin-bottom: 0;
+}
+.navbar-fixed-top .navbar-inner,
+.navbar-static-top .navbar-inner {
+  border-width: 0 0 1px;
+  padding-bottom: 6px;
+}
+.navbar-fixed-bottom .navbar-inner {
+  border-width: 1px 0 0;
+}
+.navbar-fixed-top .navbar-inner,
+.navbar-fixed-bottom .navbar-inner {
+  padding-left: 0;
+  padding-right: 0;
+}
+.navbar-fixed-bottom.nav-footer {
+  position: relative;
+  background-color: #63646F;
+}
+.nav-footer.sub-footer {
+  height: 40px;
+  clear: both;
+  border: none;
+}
+.navbar-fixed-bottom {
+  z-index: 1030;
+}
+.nav-main,
+.nav-footer {
+  min-height: 44px;
+}
 
 footer#footer-region {
     position: fixed;
     bottom: 0px;
     margin-top: 0;
     border-top: solid @footer-border-size @footer-border-color;
+    left: 50%;
+    margin-left: -540px;
   }
   footer#footer-region .nav-footer .navbar-inner {
     border: 1px solid #173763;

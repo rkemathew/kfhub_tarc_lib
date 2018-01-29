@@ -11,6 +11,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './share/header/header.component';
 import { FooterComponent } from './share/footer/footer.component';
+import { SPSearchComponent } from './successprofile/spsearch.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
     return new TranslateHttpLoader(http, "./languages/", ".json");
@@ -22,11 +23,11 @@ export function HttpLoaderFactory(http: HttpClient) {
         FormsModule,
         HttpModule,
         HttpClientModule,
-        TranslateModule.forRoot({  	
+        TranslateModule.forRoot({
             loader: {
-              provide: TranslateLoader,
-              useFactory: HttpLoaderFactory,
-              deps: [ HttpClient ]
+                provide: TranslateLoader,
+                useFactory: HttpLoaderFactory,
+                deps: [HttpClient]
             }
         }),
         AppRoutingModule
@@ -34,14 +35,15 @@ export function HttpLoaderFactory(http: HttpClient) {
     declarations: [
         AppComponent,
         HeaderComponent,
-        FooterComponent
+        FooterComponent,
+        SPSearchComponent
     ],
-    providers: [ TranslateService ],
-    bootstrap: [ AppComponent ]
+    providers: [TranslateService],
+    bootstrap: [AppComponent]
 })
 export class AppModule {
     constructor(private translate: TranslateService) {
-        translate.addLangs([ 'en', 'de', 'es-ar', 'ja', 'pl', 'tr', 'zh' ]);
+        translate.addLangs(['en', 'de', 'es-ar', 'ja', 'pl', 'tr', 'zh']);
         translate.setDefaultLang('en');
         translate.use('en');
     }
