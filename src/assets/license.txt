@@ -1,0 +1,2 @@
+"lock.png", "unlocked.png" from Icon Set:	IcoMoon - Free -- http://keyamoon.com/icomoon/
+License:	CC BY 4.0 -- https://creativecommons.org/licenses/by/4.0/

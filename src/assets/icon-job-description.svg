@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 25 25">
+    <defs>
+        <path id="a" d="M21.253 24.94H2.801V3.073H14.77l6.483 6.86z"/>
+        <path id="b" d="M2.412.61c1.076 0 1.948.872 1.948 1.948v7.427L.464 9.77V2.558C.464 1.482 1.336.61 2.412.61z"/>
+        <path id="c" d="M3.158 8.578l1.202 2.418v2.275l-3.896-.096v-1.999l1.5-2.576z"/>
+    </defs>
+    <g fill="none" fill-rule="evenodd">
+        <path stroke="#008A95" stroke-width=".5" d="M14.967 3.871v5.572h5.124z"/>
+        <use fill="#FFF" xlink:href="#a"/>
+        <path stroke="#008A95" stroke-width=".5" d="M21.003 24.69V10.033l-6.34-6.71H3.05V24.69h17.952z"/>
+        <g transform="rotate(45 12.928 26.03)">
+            <use fill="#EDF0F2" xlink:href="#b"/>
+            <path stroke="#578E3F" stroke-width=".6" d="M.764 9.486l3.296.182v-7.11a1.648 1.648 0 0 0-3.296 0v6.928z"/>
+        </g>
+        <g transform="rotate(-135 8.669 6.569)">
+            <use fill="#EDF0F2" xlink:href="#c"/>
+            <path stroke="#578E3F" stroke-width=".6" d="M2.974 8.881l-.836.016-1.374 2.36v1.625l3.296.081v-1.897L2.974 8.881z"/>
+        </g>
+        <g stroke-width=".25" transform="rotate(134 7.067 11.684)">
+            <path stroke="#1A305B" d="M2.986 3.775l1.291 3.137M6.86 6.727l1.477-2.399" opacity=".736"/>
+            <circle cx="2.023" cy="2.21" r="1.845" stroke="#008A95"/>
+            <circle cx="5.551" cy="9.184" r="2.657" stroke="#731F61"/>
+            <circle cx="9.177" cy="2.21" r="2.132" stroke="#578E3F"/>
+        </g>
+        <path stroke="#037CA3" stroke-linecap="round" d="M13.937 9.971l-.188.188"/>
+    </g>
+</svg>
