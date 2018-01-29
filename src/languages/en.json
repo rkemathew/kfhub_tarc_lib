@@ -1,3 +1,20 @@
 {
-    "Products": "PRODUCTS"
+    "Products": "PRODUCTS",
+    "SuccessProfilesPageTitle": "Success Profiles",
+    "SuccessProfilesPageDescription": "To find a Success Profile, search for name or filter by function and level. To view the details of a Success Profile, click its name. From the Actions menu, you can create a job description or create a new success profile (clone).",
+    "Grades": "Grades",
+    "Levels": "Levels",
+    "Functions": "Functions",
+    "SearchSuccessProfiles": "Search success profiles",
+    "ClearAllFilters": "Clear All Filters",
+    "NoResultsFound": "There are no results available for your search criteria.",
+    "LabelShowing": "Showing",
+    "BCSuccessProfiles": "Success Profiles",
+    "Name": "NAME",
+    "Grade": "GRADE",
+    "Function": "FUNCTION",
+    "Level": "LEVEL",
+    "CreatedBy": "CREATED BY",
+    "Date": "DATE",
+    "SPSearch_NoResults": "You have no Success Profiles."
 }
