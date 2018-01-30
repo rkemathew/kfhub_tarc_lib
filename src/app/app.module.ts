@@ -9,9 +9,9 @@ import { TranslateHttpLoader } from "@ngx-translate/http-loader";
 import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';
-import { HeaderComponent } from './share/header/header.component';
-import { FooterComponent } from './share/footer/footer.component';
-import { SPSearchComponent } from './successprofile/spsearch.component';
+import { HeaderComponent } from './shared/modules/header/header.component';
+import { FooterComponent } from './shared/modules/footer/footer.component';
+import { SPSearchComponent } from './modules/successprofile/search/spsearch.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
     return new TranslateHttpLoader(http, "./languages/", ".json");

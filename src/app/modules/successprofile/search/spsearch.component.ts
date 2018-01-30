@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { FilterMetadata } from '../models/filtermetadata.model'
+import { FilterMetadata } from '../../../shared/models/filtermetadata.model'
 
 @Component({
     selector: 'app-spsearch',
