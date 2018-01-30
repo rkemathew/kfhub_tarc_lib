@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
-
-import { Overlay } from 'ngx-modialog';
-import { Modal } from 'ngx-modialog/plugins/bootstrap';
+import { TranslateService } from "@ngx-translate/core";
 
 import { SharedConstants } from '../shared.constants';
 import { LoginService } from '../../services/login.service';
+import { AuthService } from '../../services/auth.service';
+import { PopupService } from '../../services/popup.service';
 
 @Component({
     selector: 'app-login',
@@ -27,22 +27,82 @@ export class LoginComponent implements OnInit {
 
     constructor(
         private location: Location,
-        private modal: Modal,
-        private loginService: LoginService
+        private translate: TranslateService,
+        private loginService: LoginService,
+        private authService: AuthService,
+        private popupService: PopupService
     ) {}
 
     ngOnInit() {}
 
-/*
-    $('.main-column').addClass('login');
-    $('body').addClass('login');
-    $('.header-bar').addClass('hide');
-    $('.navbar-nav').addClass('hide');
-*/
+    login() {
+        var data = {
+            username: this.email,
+            password: this.password,
+            checkedStatus: this.checkedStatus
+        };
 
-//    $scope.alertService = AlertService;
+        this.loginService.login().subscribe((res) => {
+            this.translate.setDefaultLang(res.data.locale);
+            this.translate.use(res.data.locale);
 
-    showResetPassword() {
+            let currentDateTime = new Date();
+            let currentTimeinSec = currentDateTime.getTime();
+            let passwordExpirationDate = new Date(res.data.passwordExpirationDateTime);
+            let numberDays = Math.round((res.data.passwordExpirationDateTime - currentTimeinSec) / (1000 * 3600 * 24));
+
+            if (currentDateTime > passwordExpirationDate) {
+                this.popupService.alert('PasswordExpired', 'PasswordExpires', 'ResetPassword', {})
+                    .subscribe((response) => {
+                        if (response){
+                            this.toggleForgotPassword();
+                        }
+                    }, this.handleError);
+            } else if (numberDays == 0) {
+                this.popupService.confirm('passwordExpiresToday', 'PasswordExpires', 'Change', 'Cancel', {}, {days: numberDays})
+                    .subscribe((response) => {
+                        if (response){
+                            this.toggleForgotPassword();
+                        } else {
+                            this.authService.storeAuthenticationInfo(res.data);
+                            this.loginCallback(res.data.userId);
+                            // $('.main-column').removeClass('login');
+                            // $('body').removeClass('login');
+                            // $('.header-bar').removeClass('hide');
+                            // $('.navbar-nav').removeClass('hide');
+                        }
+                    }, this.handleError);
+            } else if (numberDays < 10) {
+                this.popupService.confirm('passwordExpiresIn10', 'PasswordExpires', 'Change', 'Cancel', {}, {days: numberDays})
+                    .subscribe((response) => {
+                        if (response) {
+                            this.toggleForgotPassword();
+                        } else {
+                            this.authService.storeAuthenticationInfo(res.data);
+                            this.loginCallback(res.data.userId);
+                            // $('.main-column').removeClass('login');
+                            // $('body').removeClass('login');
+                            // $('.header-bar').removeClass('hide');
+                            // $('.navbar-nav').removeClass('hide');
+                        }
+                    }, this.handleError);
+            } else {
+                this.authService.storeAuthenticationInfo(res.data);
+                this.loginCallback(res.data.userId);
+
+                // $('.main-column').removeClass('login');
+                // $('body').removeClass('login');
+                // $('.header-bar').removeClass('hide');
+                // $('.navbar-nav').removeClass('hide');
+            }
+        });
+    }
+
+    handleError(error) {
+        console.log(error);
+    }
+
+    isShowResetPassword(): boolean {
         return this.location.path().indexOf('reset-password') > -1;
     }
 
@@ -69,128 +129,6 @@ export class LoginComponent implements OnInit {
     returnToLogin() {
         this.location.go('successprofile/login');
     }
-
-    login() {
-        var data = {
-            username: this.email,
-            password: this.password,
-            checkedStatus: this.checkedStatus
-        };
-
-        this.loginService.login().subscribe((res) => {
-        // $http.post(this.baseUrl + '/actions/login', data, { headers: { applicationName: 'PRODUCTS_HUB' } }).success(function (data, status, headers, config) {
-            // $translate.use(data.data.locale).then(function () {
-            //     AuthService.defaultLanguage($translate.use());
-            // }, function () {
-            //     AuthService.defaultLanguage($translate.use());
-            // });
-
-            let currentDateTime = new Date();
-            let currentTimeinSec = currentDateTime.getTime();
-            let passwordExpirationDate = new Date(res.data.passwordExpirationDateTime);
-            let numberDays = Math.round((res.data.passwordExpirationDateTime - currentTimeinSec) / (1000 * 3600 * 24));
-
-            const dialogRef = this.modal.alert()
-                .size('lg')
-                .showClose(true)
-                .title('PasswordExpires')
-                .body('PasswordExpired')
-                .okBtn('ResetPassword')
-                .open();
-
-            dialogRef.result.then((result) => {
-                console.log('The result is: ', result)
-            }, (error) => {
-                console.log('The error is: ', error);
-            });
-
-            alert('This is a test');
-
-            if (currentDateTime > passwordExpirationDate) {
-                // const dialogRef = this.modal.alert()
-                // .size('lg')
-                // .showClose(true)
-                // .title('PasswordExpires')
-                // .body('PasswordExpired')
-                // .okBtn('ResetPassword')
-                // .open();
-
-                // dialogRef.then((dialogRef) => {
-                //     dialogRef.result.then((result) => alert('The result is: ${result}'));
-                // });
-
-                // alert('This is a test');
-/*
-                $popup.alert('PasswordExpired', 'PasswordExpires', 'ResetPassword').then(function(response) {
-                    if (response === 'Yes'){
-                        this.toggleForgotPassword();
-                    }
-                });
-*/
-            } /* else if (numberDays == 0) {
-                $popup.confirm('passwordExpiresToday', 'PasswordExpires', 'Change', 'Cancel',{}, {days: numberDays}).then(function(response){
-                    if (response === 'Yes') {
-                        $scope.toggleForgotPassword();
-                    } else {
-                        AuthService.token(data.data.authToken);
-                        AuthService.userId(data.data.userId);
-                        AuthService.clientId(data.data.clientId);
-
-                        AuthService.username(data.data.username);
-                        AuthService.locale(data.data.locale);
-                        sessionStorage.setItem("loggedInUser", JSON.stringify(data.data));
-
-                        this.loginCallback(data.data.userId);
-                        // $('.main-column').removeClass('login');
-                        // $('body').removeClass('login');
-                        // $('.header-bar').removeClass('hide');
-                        // $('.navbar-nav').removeClass('hide');
-                    }
-                });
-            } else if (numberDays < 10) {
-                $popup.confirm('PasswordExpiresIn10', 'PasswordExpires', 'Change', 'Cancel',{}, {days: numberDays}).then(function(response){
-                    if (response === 'Yes') {
-                        $scope.toggleForgotPassword();
-                    } else {
-                        AuthService.token(data.data.authToken);
-                        AuthService.userId(data.data.userId);
-                        AuthService.clientId(data.data.clientId);
-
-                        AuthService.username(data.data.username);
-                        AuthService.locale(data.data.locale);
-                        sessionStorage.setItem("loggedInUser", JSON.stringify(data.data));
-
-                        this.loginCallback(data.data.userId);
-                        // $('.main-column').removeClass('login');
-                        // $('body').removeClass('login');
-                        // $('.header-bar').removeClass('hide');
-                        // $('.navbar-nav').removeClass('hide');
-                    }
-                });
-            } else {
-                AuthService.token(data.data.authToken);
-                AuthService.userId(data.data.userId);
-                AuthService.clientId(data.data.clientId);
-
-                AuthService.username(data.data.username);
-                AuthService.locale(data.data.locale);
-                sessionStorage.setItem("loggedInUser", JSON.stringify(data.data));
-
-                this.loginCallback(data.data.userId);
-
-                // $('.main-column').removeClass('login');
-                // $('body').removeClass('login');
-                // $('.header-bar').removeClass('hide');
-                // $('.navbar-nav').removeClass('hide');
-            }
-*/
-        });
-/*
-        .error(function (data, status, headers, config) {
-//            utilService.log('login error');
-        });
-*/
-    };
 
     toggleForgotPassword() {
         this.showForgotPassword = !this.showForgotPassword;

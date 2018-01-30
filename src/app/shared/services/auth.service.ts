@@ -1,7 +1,10 @@
 import { Injectable } from '@angular/core';
 
+import { User } from '../models/user.model';
+
 const SESSION_TIMEOUT_IN_MILLIS: number = 1200000; // 20 Minutes
 const AUTHTOKEN_REFRESH_TIMEOUT_IN_MILLIS: number = 900000; // 15 Minutes
+const SESSION_STORAGE_LOGGED_IN_USER: string = 'loggedInUser';
 
 @Injectable()
 export class AuthService {
@@ -33,5 +36,10 @@ export class AuthService {
         }
 
         return retVal;
+    }
+
+    public storeAuthenticationInfo(authInfo: any): void {
+        const user: User = new User(authInfo);
+        sessionStorage.setItem(SESSION_STORAGE_LOGGED_IN_USER, JSON.stringify(user));
     }
 }

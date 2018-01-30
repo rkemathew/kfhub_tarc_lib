@@ -19,6 +19,7 @@ import { SPSearchComponent } from './modules/successprofile/search/spsearch.comp
 
 import { AuthGuardService } from './shared/services/auth-guard.service';
 import { AuthService } from './shared/services/auth.service';
+import { PopupService } from './shared/services/popup.service';
 
 export function HttpLoaderFactory(http: HttpClient) {
     return new TranslateHttpLoader(http, "./languages/", ".json");
@@ -51,7 +52,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     providers: [
         AuthGuardService,
         AuthService,
-        TranslateService
+        TranslateService,
+        PopupService
     ],
     bootstrap: [AppComponent]
 })
