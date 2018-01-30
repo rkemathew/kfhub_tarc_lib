@@ -2,14 +2,13 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { AppComponent } from './app.component';
+import { LoginComponent } from './shared/modules/auth/login.component';
 import { SPSearchComponent } from './modules/successprofile/search/spsearch.component';
+import { AuthGuardService as AuthGuard } from './shared/services/auth-guard.service';
 
 const routes: Routes = [
-    { path: 'spsearch', component: SPSearchComponent }
-    // { path: 'detail/:id', component: HeroDetailComponent },
-    // { path: 'dashboard', component: DashboardComponent },
-    // { path: '', redirectTo: '/dashboard', pathMatch: 'full' }
-
+    { path: 'login', component: LoginComponent },
+    { path: 'spsearch', component: SPSearchComponent, canActivate: [AuthGuard] }
 ];
 
 @NgModule({

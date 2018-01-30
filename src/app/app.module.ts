@@ -8,10 +8,17 @@ import { TranslateHttpLoader } from "@ngx-translate/http-loader";
 
 import { AppRoutingModule } from './app-routing.module';
 
+import { ModalModule } from 'ngx-modialog';
+import { BootstrapModalModule } from 'ngx-modialog/plugins/bootstrap';
+
 import { AppComponent } from './app.component';
+import { LoginComponent } from './shared/modules/auth/login.component';
 import { HeaderComponent } from './shared/modules/header/header.component';
 import { FooterComponent } from './shared/modules/footer/footer.component';
 import { SPSearchComponent } from './modules/successprofile/search/spsearch.component';
+
+import { AuthGuardService } from './shared/services/auth-guard.service';
+import { AuthService } from './shared/services/auth.service';
 
 export function HttpLoaderFactory(http: HttpClient) {
     return new TranslateHttpLoader(http, "./languages/", ".json");
@@ -30,15 +37,22 @@ export function HttpLoaderFactory(http: HttpClient) {
                 deps: [HttpClient]
             }
         }),
-        AppRoutingModule
+        AppRoutingModule,
+        ModalModule.forRoot(),
+        BootstrapModalModule
     ],
     declarations: [
         AppComponent,
+        LoginComponent,
         HeaderComponent,
         FooterComponent,
         SPSearchComponent
     ],
-    providers: [TranslateService],
+    providers: [
+        AuthGuardService,
+        AuthService,
+        TranslateService
+    ],
     bootstrap: [AppComponent]
 })
 export class AppModule {
