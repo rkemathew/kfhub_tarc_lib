@@ -90,15 +90,18 @@ export class LoginComponent implements OnInit {
             let passwordExpirationDate = new Date(res.data.passwordExpirationDateTime);
             let numberDays = Math.round((res.data.passwordExpirationDateTime - currentTimeinSec) / (1000 * 3600 * 24));
 
-            this.modal.alert()
-            .size('lg')
-            .showClose(true)
-            .title('PasswordExpires')
-            .body('PasswordExpired')
-            .okBtn('ResetPassword')
-            .open()
-            .then((dialogRef) => {
-                dialogRef.result.then((result) => alert('The result is: {{ result }}'));
+            const dialogRef = this.modal.alert()
+                .size('lg')
+                .showClose(true)
+                .title('PasswordExpires')
+                .body('PasswordExpired')
+                .okBtn('ResetPassword')
+                .open();
+
+            dialogRef.result.then((result) => {
+                console.log('The result is: ', result)
+            }, (error) => {
+                console.log('The error is: ', error);
             });
 
             alert('This is a test');
