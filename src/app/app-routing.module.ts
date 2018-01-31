@@ -7,6 +7,7 @@ import { SPSearchComponent } from './modules/successprofile/search/spsearch.comp
 import { AuthGuardService as AuthGuard } from './shared/services/auth-guard.service';
 
 const routes: Routes = [
+    { path: '', redirectTo: '/spsearch', pathMatch: 'full' },
     { path: 'login', component: LoginComponent },
     { path: 'spsearch', component: SPSearchComponent, canActivate: [AuthGuard] }
 ];

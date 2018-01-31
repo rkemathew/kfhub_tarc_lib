@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { User } from '../models/user.model';
 import { SessionInfo } from '../models/sessioninfo.model';
@@ -9,11 +10,11 @@ const SESSION_STORAGE_INFO: string = 'sessionInfo';
 
 @Injectable()
 export class AuthService {
-    constructor() {}
+    private redirectUrl: string = null;
+
+    constructor(private router: Router) {}
 
     public isAuthenticated(): boolean {
-        let retVal: boolean = false;
-
         const sessionInfoString = sessionStorage.getItem(SESSION_STORAGE_INFO);
         const sessionInfo: SessionInfo = sessionInfoString ? this.getSessionInfo(sessionInfoString) : null;
         const authTokenRefreshTime: Date = sessionInfo ? sessionInfo.AuthTokenRefreshTime : null;
@@ -26,16 +27,14 @@ export class AuthService {
         
         if (lastActivityElapsedTime > -1 && lastActivityElapsedTime < SESSION_TIMEOUT_IN_MILLIS) {
             if (authTokenElapsedTime > -1 && authTokenElapsedTime < AUTHTOKEN_REFRESH_TIMEOUT_IN_MILLIS) {
-                retVal = true;
+                return true;
             } else {
                 // Re-validate the AuthToken by issuing a call to UserInfo to ensure that the authToken is still valid
                 // Update the authTokenRefreshTime in sessionStorage
             }
         } else {
-            retVal = false;
+            return false;
         }
-
-        return retVal;
     }
 
     public storeAuthenticationInfo(authInfo: any): void {
@@ -47,6 +46,14 @@ export class AuthService {
 
     public removeAuthenticationInfo(): void {
         sessionStorage.removeItem(SESSION_STORAGE_INFO);
+    }
+
+    public setRedirectUrl(redirectUrl: string): void {
+        this.redirectUrl = redirectUrl;
+    }
+
+    public redirect(): void {
+        this.router.navigate([this.redirectUrl]);
     }
 
     private getSessionInfo(sessionInfoString): SessionInfo {

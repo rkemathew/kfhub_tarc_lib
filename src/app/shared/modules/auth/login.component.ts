@@ -3,6 +3,7 @@ import { Location, LocationStrategy, PathLocationStrategy } from '@angular/commo
 import { TranslateService } from "@ngx-translate/core";
 
 import { SharedConstants } from '../shared.constants';
+import { LoginInfo } from '../../models/logininfo.model';
 import { LoginService } from '../../services/login.service';
 import { AuthService } from '../../services/auth.service';
 import { PopupService } from '../../services/popup.service';
@@ -14,12 +15,12 @@ import { PopupService } from '../../services/popup.service';
     providers: [ LoginService ]
 })
 export class LoginComponent implements OnInit {
+    public email: string = null;
+    public password: string = null;
     private deploy: string = ''; // HG.DEPLOY;
     private isLoggedIn = false; // sessionStorage.getItem(HG.USERID_KEY) ? true: false;
     private newPassword = null;
     private confirmNewPassword = null;
-    private email: string = null;
-    private password: string = null;
     private checkedStatus: boolean = false;
     private showForgotPassword: boolean = false;
     private resetPWEmail: string = '';
@@ -36,13 +37,9 @@ export class LoginComponent implements OnInit {
     ngOnInit() {}
 
     login() {
-        var data = {
-            username: this.email,
-            password: this.password,
-            checkedStatus: this.checkedStatus
-        };
+        var loginInfo: LoginInfo = new LoginInfo(this.email, this.password);
 
-        this.loginService.login().subscribe((res) => {
+        this.loginService.login(loginInfo).subscribe((res) => {
             this.translate.setDefaultLang(res.data.locale);
             this.translate.use(res.data.locale);
 
@@ -89,6 +86,7 @@ export class LoginComponent implements OnInit {
             } else {
                 this.authService.storeAuthenticationInfo(res.data);
                 this.loginCallback(res.data.userId);
+                this.authService.redirect();
 
                 // $('.main-column').removeClass('login');
                 // $('body').removeClass('login');
