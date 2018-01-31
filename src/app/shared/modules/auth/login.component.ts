@@ -4,15 +4,13 @@ import { TranslateService } from "@ngx-translate/core";
 
 import { SharedConstants } from '../shared.constants';
 import { LoginInfo } from '../../models/logininfo.model';
-import { LoginService } from '../../services/login.service';
 import { AuthService } from '../../services/auth.service';
 import { PopupService } from '../../services/popup.service';
 
 @Component({
     selector: 'app-login',
     templateUrl: 'login.component.html',
-    styleUrls: [ 'login.component.less' ],
-    providers: [ LoginService ]
+    styleUrls: [ 'login.component.less' ]
 })
 export class LoginComponent implements OnInit {
     public email: string = null;
@@ -29,7 +27,6 @@ export class LoginComponent implements OnInit {
     constructor(
         private location: Location,
         private translate: TranslateService,
-        private loginService: LoginService,
         private authService: AuthService,
         private popupService: PopupService
     ) {}
@@ -39,7 +36,7 @@ export class LoginComponent implements OnInit {
     login() {
         var loginInfo: LoginInfo = new LoginInfo(this.email, this.password);
 
-        this.loginService.login(loginInfo).subscribe((res) => {
+        this.authService.login(loginInfo).subscribe((res) => {
             this.translate.setDefaultLang(res.data.locale);
             this.translate.use(res.data.locale);
 
@@ -63,10 +60,6 @@ export class LoginComponent implements OnInit {
                         } else {
                             this.authService.storeAuthenticationInfo(res.data);
                             this.loginCallback(res.data.userId);
-                            // $('.main-column').removeClass('login');
-                            // $('body').removeClass('login');
-                            // $('.header-bar').removeClass('hide');
-                            // $('.navbar-nav').removeClass('hide');
                         }
                     }, this.handleError);
             } else if (numberDays < 10) {
@@ -77,27 +70,18 @@ export class LoginComponent implements OnInit {
                         } else {
                             this.authService.storeAuthenticationInfo(res.data);
                             this.loginCallback(res.data.userId);
-                            // $('.main-column').removeClass('login');
-                            // $('body').removeClass('login');
-                            // $('.header-bar').removeClass('hide');
-                            // $('.navbar-nav').removeClass('hide');
                         }
                     }, this.handleError);
             } else {
                 this.authService.storeAuthenticationInfo(res.data);
                 this.loginCallback(res.data.userId);
                 this.authService.redirect();
-
-                // $('.main-column').removeClass('login');
-                // $('body').removeClass('login');
-                // $('.header-bar').removeClass('hide');
-                // $('.navbar-nav').removeClass('hide');
             }
-        });
+        }, this.handleError);
     }
 
     handleError(error) {
-        console.log(error);
+        console.log('handleError', error ? error : 'Undefined');
     }
 
     isShowResetPassword(): boolean {

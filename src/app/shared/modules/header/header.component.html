@@ -8,20 +8,20 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <div class="navbar-brand" ng-click="redirectToTalent()">
+                <div class="navbar-brand" (click)="redirectToTalent()">
                     <img alt="Korn Ferry" src="/assets/logo.svg" />
                 </div>
             </div>
-            <div id="navbar" class="collapse navbar-collapse">
+            <div id="navbar" class="collapse navbar-collapse" *ngIf="isAppPages()">
                 <ul class="nav navbar-nav pull-right" ng-hide="isLogin">
-                    <li><a class="icon settings" ng-show="hasAdminRole()" ng-click="redirectToAdminModule()"></a></li>
-                    <li><a class="icon user" ng-click="toggleMenu()"></a></li>
+                    <li><a class="icon settings" ng-show="hasAdminRole()" (click)="redirectToAdminModule()"></a></li>
+                    <li><a class="icon user" (click)="toggleMenu()"></a></li>
                 </ul>
                 <div class="menu" ng-show="showMenu">
                     <div class="triangle"></div>
                     <ul>
-                        <li ng-click="preferences()">{{ 'MyProfile' | translate }}</li>
-                        <li id="logout" ng-click="logout()">{{ 'Logout' | translate }}</li>
+                        <li (click)="preferences()">{{ 'MyProfile' | translate }}</li>
+                        <li id="logout" (click)="logout()">{{ 'Logout' | translate }}</li>
                     </ul>
                 </div>
             </div>
