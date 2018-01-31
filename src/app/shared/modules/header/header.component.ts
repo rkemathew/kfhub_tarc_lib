@@ -37,7 +37,7 @@ export class HeaderComponent {
     
     logout(): void {
         this.isShowMenu = false;
-        this.authService.removeAuthenticationInfo();
+        this.authService.removeSessionInfo();
         this.router.navigate(['/login']);
     }
 

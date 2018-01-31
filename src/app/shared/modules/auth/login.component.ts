@@ -35,49 +35,68 @@ export class LoginComponent implements OnInit {
 
     login() {
         var loginInfo: LoginInfo = new LoginInfo(this.email, this.password);
-
         this.authService.login(loginInfo).subscribe((res) => {
-            this.translate.setDefaultLang(res.data.locale);
-            this.translate.use(res.data.locale);
+            let authInfo: any = res.data;
+            this.authService.storeSessionInfo(authInfo);
 
-            let currentDateTime = new Date();
-            let currentTimeinSec = currentDateTime.getTime();
-            let passwordExpirationDate = new Date(res.data.passwordExpirationDateTime);
-            let numberDays = Math.round((res.data.passwordExpirationDateTime - currentTimeinSec) / (1000 * 3600 * 24));
+            const userId = authInfo.userId;
+            this.authService.getUser(userId).subscribe((res) => {
+                authInfo.firstName = res.data.firstName;
+                authInfo.lastName = res.data.lastName;
+                authInfo.hasTalentProduct = false;
+                authInfo.hasPayProduct = false;
+                authInfo.hasTalentAcquisitionProduct = false;
+                authInfo.hasPayDataProduct = false;
 
-            if (currentDateTime > passwordExpirationDate) {
-                this.popupService.alert('PasswordExpired', 'PasswordExpires', 'ResetPassword', {})
-                    .subscribe((response) => {
-                        if (response){
-                            this.toggleForgotPassword();
-                        }
-                    }, this.handleError);
-            } else if (numberDays == 0) {
-                this.popupService.confirm('passwordExpiresToday', 'PasswordExpires', 'Change', 'Cancel', {}, {days: numberDays})
-                    .subscribe((response) => {
-                        if (response){
-                            this.toggleForgotPassword();
-                        } else {
-                            this.authService.storeAuthenticationInfo(res.data);
-                            this.loginCallback(res.data.userId);
-                        }
-                    }, this.handleError);
-            } else if (numberDays < 10) {
-                this.popupService.confirm('passwordExpiresIn10', 'PasswordExpires', 'Change', 'Cancel', {}, {days: numberDays})
-                    .subscribe((response) => {
-                        if (response) {
-                            this.toggleForgotPassword();
-                        } else {
-                            this.authService.storeAuthenticationInfo(res.data);
-                            this.loginCallback(res.data.userId);
-                        }
-                    }, this.handleError);
-            } else {
-                this.authService.storeAuthenticationInfo(res.data);
-                this.loginCallback(res.data.userId);
-                this.authService.redirect();
-            }
+                res.data.subscriptions[0].productTypes.forEach((productType) => {
+                    switch (productType.id) {
+                        case 22: authInfo.hasTalentProduct = true; break;
+                        case 23: authInfo.hasPayProduct = true; break;
+                        case 24: authInfo.hasTalentAcquisitionProduct = true; break;
+                        case 25: authInfo.hasPayProduct = true; break;
+                    }
+                });
+
+                this.authService.storeSessionInfo(authInfo);
+                this.loginPostProcess(authInfo);
+            }, this.handleError);
         }, this.handleError);
+    }
+
+    loginPostProcess(authInfo: any) {
+        console.log('authInfo', authInfo);
+        this.translate.setDefaultLang(authInfo.locale);
+        this.translate.use(authInfo.locale);
+
+        let currentDateTime = new Date();
+        let currentTimeinSec = currentDateTime.getTime();
+        let passwordExpirationDate = new Date(authInfo.passwordExpirationDateTime);
+        let numberDays = Math.round((authInfo.passwordExpirationDateTime - currentTimeinSec) / (1000 * 3600 * 24));
+
+        if (currentDateTime > passwordExpirationDate) {
+            this.popupService.alert('PasswordExpired', 'PasswordExpires', 'ResetPassword', {})
+                .subscribe((response) => {
+                    if (response) {
+                        this.toggleForgotPassword();
+                    }
+                }, this.handleError);
+        } else if (numberDays == 0) {
+            this.popupService.confirm('passwordExpiresToday', 'PasswordExpires', 'Change', 'Cancel', {}, {days: numberDays})
+                .subscribe((response) => {
+                    if (response) {
+                        this.toggleForgotPassword();
+                    }
+                }, this.handleError);
+        } else if (numberDays < 10) {
+            this.popupService.confirm('passwordExpiresIn10', 'PasswordExpires', 'Change', 'Cancel', {}, {days: numberDays})
+                .subscribe((response) => {
+                    if (response) {
+                        this.toggleForgotPassword();
+                    }
+                }, this.handleError);
+        } else {
+            this.authService.redirect();
+        }
     }
 
     handleError(error) {
@@ -125,57 +144,6 @@ export class LoginComponent implements OnInit {
         ).success(function(data, status, headers, config){
             AlertService.setSuccessMessage(data.responseMessage);
         }).error(function (data, status, headers, config) {
-        });
-*/
-    }
-
-    loginCallback(userId) {
-/*        
-        SPUserService.getUser(userId).then(function(res) {
-            AuthService.isAdmin(!!(res.roles && res.roles.length));
-
-            if (res.subscriptions && res.subscriptions[0] && res.subscriptions[0].productTypes) {
-                SPUserService.products(res.subscriptions[0].productTypes);
-
-                var talentProduct = _.find(SPUserService.products(), function(p){ return p.id === 22; });
-                var payProduct = _.find(SPUserService.products(), function(p){ return p.id === 23; });
-                var talentAcqusitionProduct = _.find(SPUserService.products(), function(p){ return p.id === 24; });
-                var payData = _.find(SPUserService.products(), function(p){ return p.id === 25; }); // GS TODO doesnt' look like we have product with id 25
-                var path= '';
-                var paramObj = this.location.search();
-
-                if (paramObj.redirecturl && paramObj.redirecturl !== '/successprofile/login') {
-                    this.location.path(paramObj.redirecturl);
-                    // $rootScope.isLogin = false;
-                } else if (talentProduct && talentProduct.access) {
-                    this.location.path('/talentarchitect/spsearch');
-                    // $rootScope.isLogin = false;
-                } else if (payProduct && payProduct.access) {
-                    PayService.getCountriesWithData().then(function(response) {
-                        var powerBIDashboardEnabledClients = response.data.powerBIDashboardEnabledClients.split('|');
-                        var subscribedToNewPay = powerBIDashboardEnabledClients.indexOf(AuthService.clientId().toString()) > -1;
-                        this.location.path(subscribedToNewPay ? 'pay/new' : 'pay/paydashboard');
-                        // $rootScope.isLogin = false;
-                    });
-                } else if (payData && payData.access) {
-                    this.location.path('/organizationperformance/dataleaderboard');
-                    // $rootScope.isLogin = false;
-                } else if (talentAcqusitionProduct && talentAcqusitionProduct.access) {
-                    this.location.path('/talentacquisition/tacqprojectsearch');
-                    // $rootScope.isLogin = false;
-                } else {
-                    AlertService.setError('NoPermission');
-                    AuthService.clearToken();
-                }
-
-                if (path) {
-                    if (paramObj.redirecturl) {
-                        this.location.path(paramObj.redirecturl);
-                    } else {
-                        this.location.path(path);
-                    }
-                }
-            }
         });
 */
     }

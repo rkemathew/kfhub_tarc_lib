@@ -9,7 +9,7 @@ import 'rxjs/add/operator/catch';
 export class ProjectService {
     constructor(private http: Http) {}
 
-    getAssessmentSubscriptions() {
+    getAssessmentSubscriptions(): Observable<any> {
         let url = '';
         return this.http.get(url)
             .map((res: Response) => res.json())
