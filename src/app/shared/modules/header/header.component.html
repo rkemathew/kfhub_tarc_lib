@@ -12,12 +12,12 @@
                     <img alt="Korn Ferry" src="/assets/logo.svg" />
                 </div>
             </div>
-            <div id="navbar" class="collapse navbar-collapse" *ngIf="isAppPages()">
-                <ul class="nav navbar-nav pull-right" ng-hide="isLogin">
-                    <li><a class="icon settings" ng-show="hasAdminRole()" (click)="redirectToAdminModule()"></a></li>
+            <div id="navbar" class="collapse navbar-collapse">
+                <ul class="nav navbar-nav pull-right" *ngIf="isAppPages()">
+                    <li><a class="icon settings" *ngIf="hasAdminRole()" (click)="redirectToAdminModule()"></a></li>
                     <li><a class="icon user" (click)="toggleMenu()"></a></li>
                 </ul>
-                <div class="menu" ng-show="showMenu">
+                <div class="menu" *ngIf="isShowMenu">
                     <div class="triangle"></div>
                     <ul>
                         <li (click)="preferences()">{{ 'MyProfile' | translate }}</li>
