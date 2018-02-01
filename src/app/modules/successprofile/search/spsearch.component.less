@@ -43,6 +43,15 @@
 
 
   .masthead {
+    align-items: center;
+    background: none;
+    display: flex;
+    flex-direction: column;
+  
+    .body {
+      width: @site-width;
+        z-index: 1;
+    }
   }
 
   .well-top-breadcrumbs {
@@ -82,7 +91,6 @@
       margin-top: 0;
     }
     .well-top-title-block{
-      // margin-top: 15px !important;
     }
     .well-top-subtitle a{
       color: white;
@@ -93,6 +101,7 @@
   .main-container{
     // margin-bottom: 150px;
     padding-bottom: 50px;
+    
     .search-filter-section{
       .input-group{
         width: 50%;

@@ -61,13 +61,24 @@ export class AuthService {
         
         if (lastActivityElapsedTime > -1 && lastActivityElapsedTime < SESSION_TIMEOUT_IN_MILLIS) {
             if (authTokenElapsedTime > -1 && authTokenElapsedTime < AUTHTOKEN_REFRESH_TIMEOUT_IN_MILLIS) {
+                // Update the lastActivityTime since there has been a user action
+                const updateAttributes: any = {
+                    lastActivityTime: new Date()
+                };
+
+                this.updateSessionInfo(updateAttributes);
+
                 return true;
             } else {
                 // Time Threshold for re-verifying the AuthToken has elapsed, so re-verifying with a getUser() call
+                console.log('AuthTokenRefresh Threshold Elapsed, re-verifying authToken again getUser() API');
                 const userId = sessionInfo.User.UserId;
                 this.getUser(userId).subscribe((res) => {
+                    // Update the lastActivityTime since there has been a user action
+                    // Also, update the authTokenRefreshTime as it just got re-verified against the getUser() API
                     const updateAttributes: any = {
-                        authTokenRefreshTime: new Date()
+                        authTokenRefreshTime: new Date(),
+                        lastActivityTime: new Date()
                     };
 
                     // Update the authTokenRefreshTime in sessionStorage
@@ -97,18 +108,22 @@ export class AuthService {
         const sessionInfo: SessionInfo = this.getSessionInfo();
         if (updateAttributes.User) {
             sessionInfo.User = updateAttributes.User;
+            console.log('User got updated in sessionInfo');
         }
 
         if (updateAttributes.authTokenRefreshTime) {
             sessionInfo.AuthTokenRefreshTime = updateAttributes.authTokenRefreshTime;
+            console.log('authTokenRefreshTime got updated in sessionInfo');
         }
 
         if (updateAttributes.loggedInTime) {
             sessionInfo.LoggedInTime = updateAttributes.loggedInTime;
+            console.log('loggedInTime got updated in sessionInfo');
         }
 
         if (updateAttributes.lastActivityTime) {
             sessionInfo.LastActivityTime = updateAttributes.lastActivityTime;
+            console.log('lastActivityTime got updated in sessionInfo');
         }
 
         this.sessionInfoCache = sessionInfo;
