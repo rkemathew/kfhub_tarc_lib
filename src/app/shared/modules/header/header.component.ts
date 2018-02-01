@@ -1,12 +1,8 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
 
 import { AuthService } from '../../services/auth.service';
-
-const nonAppPages: Array<string> = [
-    "/login"
-];
+import { UtilsService } from '../../services/utils.service';
 
 @Component({
     selector: 'app-header',
@@ -18,12 +14,12 @@ export class HeaderComponent {
 
     constructor(
         private router: Router,
-        private location: Location,
-        private authService: AuthService
+        private authService: AuthService,
+        private utilsService: UtilsService
     ) {};
 
     isAppPages(): boolean {
-        return nonAppPages.indexOf(this.location.path()) === -1;
+        return this.utilsService.isAppPages();
     }
 
     toggleMenu(): void {

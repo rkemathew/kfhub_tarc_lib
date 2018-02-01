@@ -17,10 +17,12 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './shared/modules/auth/login.component';
 import { HeaderComponent } from './shared/modules/header/header.component';
 import { FooterComponent } from './shared/modules/footer/footer.component';
+import { MenuComponent } from './shared/modules/menu/menu.component';
 import { SPSearchComponent } from './modules/successprofile/search/spsearch.component';
 
 import { AuthGuardService } from './shared/services/auth-guard.service';
 import { AuthService } from './shared/services/auth.service';
+import { UtilsService } from './shared/services/utils.service';
 import { PopupService } from './shared/services/popup.service';
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -50,11 +52,13 @@ export function HttpLoaderFactory(http: HttpClient) {
         LoginComponent,
         HeaderComponent,
         FooterComponent,
+        MenuComponent,
         SPSearchComponent
     ],
     providers: [
         AuthGuardService,
         AuthService,
+        UtilsService,
         TranslateService,
         PopupService
     ],
