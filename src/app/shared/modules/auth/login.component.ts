@@ -6,7 +6,7 @@ import { SharedConstants } from '../shared.constants';
 import { LoginInfo } from '../../models/logininfo.model';
 import { AuthService } from '../../services/auth.service';
 import { PopupService } from '../../services/popup.service';
-import { NotificationsService } from '../../services/notifications.service';
+import { AdvGrowlService } from 'primeng-advanced-growl';
 
 @Component({
     selector: 'app-login',
@@ -30,14 +30,12 @@ export class LoginComponent implements OnInit {
         private translate: TranslateService,
         private authService: AuthService,
         private popupService: PopupService,
-        private notificationsService: NotificationsService
+        private advGrowlService: AdvGrowlService
     ) {}
 
     ngOnInit() {}
 
     login() {
-        this.notificationsService.notify('info', 'Welcome', 'You have Logged In');
-
         var loginInfo: LoginInfo = new LoginInfo(this.email, this.password);
         this.authService.login(loginInfo).subscribe((res) => {
             let authInfo: any = res.data;
@@ -62,6 +60,19 @@ export class LoginComponent implements OnInit {
                 });
 
                 this.authService.storeSessionInfo(authInfo);
+
+                this.advGrowlService.createTimedSuccessMessage('Welcome ' + authInfo.firstName + ' ' + authInfo.lastName, 'Welcome', 7000);
+                setTimeout(() => {
+                    this.advGrowlService.createWarningMessage('You have been warned', 'Warning Message');
+                }, 2000);
+
+                setTimeout(() => {
+                    this.advGrowlService.createTimedInfoMessage('This is an informational message', 'Info Message', 10000);
+                }, 1000);
+
+                setTimeout(() => {
+                    this.advGrowlService.createTimedErrorMessage('This is bad. An Error Occurred. Click me to close', 'Error Message', 0);
+                }, 3000);
 
                 this.loginPostProcess(authInfo);
             }, this.handleError);

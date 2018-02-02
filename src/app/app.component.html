@@ -1,5 +1,5 @@
 <app-header></app-header>
 <app-menu *ngIf="isAppPages()"></app-menu>
-<app-notifications></app-notifications>
+<adv-growl [life]="4000"></adv-growl>
 <router-outlet></router-outlet>
 <app-footer></app-footer>
