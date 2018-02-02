@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './shared/modules/auth/login.component';
-import { SPSearchComponent } from './modules/successprofile/search/spsearch.component';
+import { SPSearchComponent } from './modules/talentarchitect/successprofile/spsearch.component';
 import { AuthGuardService as AuthGuard } from './shared/services/auth-guard.service';
 
 const routes: Routes = [

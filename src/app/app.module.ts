@@ -18,7 +18,7 @@ import { LoginComponent } from './shared/modules/auth/login.component';
 import { HeaderComponent } from './shared/modules/header/header.component';
 import { FooterComponent } from './shared/modules/footer/footer.component';
 import { MenuComponent } from './shared/modules/menu/menu.component';
-import { SPSearchComponent } from './modules/successprofile/search/spsearch.component';
+import { SPSearchComponent } from './modules/talentarchitect/successprofile/spsearch.component';
 
 import { AuthGuardService } from './shared/services/auth-guard.service';
 import { AuthService } from './shared/services/auth.service';
