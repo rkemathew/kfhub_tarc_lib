@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
 import { TranslateService } from "@ngx-translate/core";
 
-import { SharedConstants } from '../shared.constants';
 import { LoginInfo } from '../../models/logininfo.model';
 import { AuthService } from '../../services/auth.service';
 import { PopupService } from '../../services/popup.service';
@@ -23,7 +22,6 @@ export class LoginComponent implements OnInit {
     private checkedStatus: boolean = false;
     private showForgotPassword: boolean = false;
     private resetPWEmail: string = '';
-    private baseUrl: string = SharedConstants.BASE_API_URL + SharedConstants.API_VERSION;
 
     constructor(
         private location: Location,

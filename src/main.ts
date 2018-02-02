@@ -2,9 +2,9 @@ import { enableProdMode } from '@angular/core';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 
 import { AppModule } from './app/app.module';
-import { environment as environmentPromise } from './environments/environment';
+import { environmentReader } from './environments/environment';
 
-environmentPromise.then(environment => {
+environmentReader.then(environment => {
     if (environment["production"]) {
         enableProdMode();
     }
