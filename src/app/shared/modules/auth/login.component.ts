@@ -6,6 +6,7 @@ import { SharedConstants } from '../shared.constants';
 import { LoginInfo } from '../../models/logininfo.model';
 import { AuthService } from '../../services/auth.service';
 import { PopupService } from '../../services/popup.service';
+import { NotificationsService } from '../../services/notifications.service';
 
 @Component({
     selector: 'app-login',
@@ -28,12 +29,15 @@ export class LoginComponent implements OnInit {
         private location: Location,
         private translate: TranslateService,
         private authService: AuthService,
-        private popupService: PopupService
+        private popupService: PopupService,
+        private notificationsService: NotificationsService
     ) {}
 
     ngOnInit() {}
 
     login() {
+        this.notificationsService.notify('info', 'Welcome', 'You have Logged In');
+
         var loginInfo: LoginInfo = new LoginInfo(this.email, this.password);
         this.authService.login(loginInfo).subscribe((res) => {
             let authInfo: any = res.data;
@@ -58,6 +62,7 @@ export class LoginComponent implements OnInit {
                 });
 
                 this.authService.storeSessionInfo(authInfo);
+
                 this.loginPostProcess(authInfo);
             }, this.handleError);
         }, this.handleError);
