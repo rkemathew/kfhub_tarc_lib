@@ -45,4 +45,7 @@ export class HeaderComponent {
         this.isShowMenu = false;
         // TODO:
     }
+
+    redirectToTalent() {
+    }
 }

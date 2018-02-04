@@ -20,7 +20,7 @@ export class LoginComponent implements OnInit {
     private newPassword = null;
     private confirmNewPassword = null;
     private checkedStatus: boolean = false;
-    private showForgotPassword: boolean = false;
+    public showForgotPassword: boolean = false;
     private resetPWEmail: string = '';
 
     constructor(
@@ -122,43 +122,41 @@ export class LoginComponent implements OnInit {
     }
 
     resetPassword() {
-        if (this.newPassword === this.confirmNewPassword){
-            var data = {
-//                passwordToken: $routeParams.passwordToken,
-                newPassword: this.newPassword,
-                retypeNewPassword: this.confirmNewPassword
-            };
+//         if (this.newPassword === this.confirmNewPassword){
+//             var data = {
+// //                passwordToken: $routeParams.passwordToken,
+//                 newPassword: this.newPassword,
+//                 retypeNewPassword: this.confirmNewPassword
+//             };
 
-            // $http.post(baseUrl + '/actions/resetpassword', data).success(function(data, status, headers, config){
-            //     AlertService.clear();
-            //     AlertService.setSuccessMessage(data.responseMessage);
-            //     setTimeout(function(){
-            //         $scope.returnToLogin();
-            //     }, 2000);
-            // })
-        } else {
-//            AlertService.setError('PasswordsNotMatch');
-        }
+//             $http.post(baseUrl + '/actions/resetpassword', data).success(function(data, status, headers, config){
+//                 AlertService.clear();
+//                 AlertService.setSuccessMessage(data.responseMessage);
+//                 setTimeout(function(){
+//                     $scope.returnToLogin();
+//                 }, 2000);
+//             })
+//         } else {
+// //            AlertService.setError('PasswordsNotMatch');
+//         }
     }
 
     returnToLogin() {
-        this.location.go('successprofile/login');
+        // this.location.go('successprofile/login');
     }
 
     toggleForgotPassword() {
-        this.showForgotPassword = !this.showForgotPassword;
-        this.resetPWEmail = '';
+        // this.showForgotPassword = !this.showForgotPassword;
+        // this.resetPWEmail = '';
     }
 
     sendResetEmail() {
-/*
-        $http.post(this.baseUrl + '/actions/forgotpassword', 
-            { userName: this.resetPWEmail },
-            { headers: {'applicationName':'KF_PRODUCTS'} }
-        ).success(function(data, status, headers, config){
-            AlertService.setSuccessMessage(data.responseMessage);
-        }).error(function (data, status, headers, config) {
-        });
-*/
+        // $http.post(this.baseUrl + '/actions/forgotpassword', 
+        //     { userName: this.resetPWEmail },
+        //     { headers: {'applicationName':'KF_PRODUCTS'} }
+        // ).success(function(data, status, headers, config){
+        //     AlertService.setSuccessMessage(data.responseMessage);
+        // }).error(function (data, status, headers, config) {
+        // });
     }
 }

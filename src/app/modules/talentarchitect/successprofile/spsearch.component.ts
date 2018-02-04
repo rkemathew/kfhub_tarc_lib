@@ -9,8 +9,8 @@ import { FilterMetadata } from '../../../shared/models/filtermetadata.model'
 })
 export class SPSearchComponent implements OnInit {
     private page: string = 'successProfileSearch';
-    private searchString: string = '';//$route.current.params.queryString || '';
-    private searchResults: Array<string> = [];
+    public searchString: string = '';//$route.current.params.queryString || '';
+    public searchResults: Array<string> = [];
     private pagingInfo: Object = {};
     private pageIndex: number = 1;
     private pageSize: number = 20;
@@ -19,13 +19,13 @@ export class SPSearchComponent implements OnInit {
     private selectedFunctionFilters: Array<Object> = [];
     private selectedLevelFilters: Array<Object> = [];
     private selectedGradeFilters: Array<Object> = [];
-    private searchLoading: boolean = false;
+    public searchLoading: boolean = false;
     private searchQueueLength: number = 0;
     private scrollingPageIndex: number = 0;
     private reSearch: boolean = false;
     private showFilters: boolean = false;
-    private appliedFilters: Array<Object> = [];
-    private listView: boolean = true;
+    public appliedFilters: Array<Object> = [];
+    public listView: boolean = true;
 
     ngOnInit() {
         this.getSubscriptions();
@@ -245,4 +245,7 @@ export class SPSearchComponent implements OnInit {
         this.refreshResults(true);
 */
     };
+
+    doSearch() {
+    }
 }
