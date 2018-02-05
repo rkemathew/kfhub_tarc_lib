@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { Http, Response, Headers, RequestOptions, RequestOptionsArgs } from '@angular/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs/Rx';
 
 import 'rxjs/add/operator/map';
@@ -22,7 +22,7 @@ export class AuthService {
 
     constructor(
         private router: Router,
-        private http: Http
+        private http: HttpClient
     ) {}
 
     public login(loginInfo: LoginInfo): Observable<any> {
@@ -31,11 +31,8 @@ export class AuthService {
             "username": loginInfo.Username,
             "password": loginInfo.Password
         };
-        const options: RequestOptionsArgs = {
-            headers: new Headers({ "applicationName": SharedConstants.APP_NAME_CORE })
-        };
-        return this.http.post(url, body, options)
-            .map((res: Response) => res.json())
+        const headers: HttpHeaders = new HttpHeaders().set("applicationName", SharedConstants.APP_NAME_CORE);
+        return this.http.post(url, body, { headers })
             .catch((error: any) => Observable.throw(error));
     }
 
@@ -176,13 +173,10 @@ export class AuthService {
         if (!headers.authToken) {
             headers.authToken = this.AuthToken;
         }
-
-        const options: RequestOptions = new RequestOptions({ headers: headers });
-
+        
         switch(method.toUpperCase()) {
             case 'GET':
-                retVal = this.http.get(url, options)
-                    .map((res: Response) => res.json())
+                retVal = this.http.get(url, { headers })
                     .catch((error: any) => Observable.throw(error));
                 break;
             case 'PUT':

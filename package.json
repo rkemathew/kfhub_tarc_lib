@@ -27,6 +27,7 @@
     "bootstrap": "^3.3.7",
     "core-js": "^2.4.1",
     "font-awesome": "^4.7.0",
+    "ng-http-loader": "^0.7.0",
     "ngx-modialog": "^5.0.0",
     "primeng": "^5.2.0",
     "primeng-advanced-growl": "^3.1.3",

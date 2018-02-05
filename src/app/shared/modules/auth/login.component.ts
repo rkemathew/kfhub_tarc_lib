@@ -59,7 +59,8 @@ export class LoginComponent implements OnInit {
 
                 this.authService.storeSessionInfo(authInfo);
 
-                this.advGrowlService.createTimedSuccessMessage('Welcome ' + authInfo.firstName + ' ' + authInfo.lastName, 'Welcome', 7000);
+                this.advGrowlService.createTimedSuccessMessage('Welcome ' + authInfo.firstName + ' ' + authInfo.lastName, 'Welcome', 3000);
+/*
                 setTimeout(() => {
                     this.advGrowlService.createWarningMessage('You have been warned', 'Warning Message');
                 }, 2000);
@@ -71,7 +72,7 @@ export class LoginComponent implements OnInit {
                 setTimeout(() => {
                     this.advGrowlService.createTimedErrorMessage('This is bad. An Error Occurred. Click me to close', 'Error Message', 0);
                 }, 3000);
-
+*/
                 this.loginPostProcess(authInfo);
             }, this.handleError);
         }, this.handleError);

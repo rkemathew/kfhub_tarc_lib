@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-
+import { Spinkit } from 'ng-http-loader/spinkits';
 import { UtilsService } from './shared/services/utils.service';
 
 @Component({
@@ -8,6 +8,8 @@ import { UtilsService } from './shared/services/utils.service';
     styleUrls: [ 'app.component.less' ]
 })
 export class AppComponent {
+    public spinkit = Spinkit;
+    
     constructor(private utilsService: UtilsService){};
 
     isAppPages(): boolean {

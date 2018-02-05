@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { TranslateModule, TranslateLoader, TranslateService } from "@ngx-translate/core";
 import { TranslateHttpLoader } from "@ngx-translate/http-loader";
@@ -13,6 +12,7 @@ import { ModalModule } from 'ngx-modialog';
 import { BootstrapModalModule } from 'ngx-modialog/plugins/bootstrap';
 
 import { AdvGrowlModule } from 'primeng-advanced-growl';
+import { NgHttpLoaderModule } from 'ng-http-loader/ng-http-loader.module';
 
 import { AppRoutingModule } from './app-routing.module';
 
@@ -40,8 +40,8 @@ export function HttpLoaderFactory(http: HttpClient) {
         BrowserAnimationsModule,
         FormsModule,
         NgbModule.forRoot(),
-        HttpModule,
         HttpClientModule,
+        NgHttpLoaderModule,
         TranslateModule.forRoot({
             loader: {
                 provide: TranslateLoader,
@@ -68,7 +68,7 @@ export function HttpLoaderFactory(http: HttpClient) {
         AuthService,
         UtilsService,
         TranslateService,
-        PopupService,
+        PopupService
     ],
     bootstrap: [AppComponent]
 })
