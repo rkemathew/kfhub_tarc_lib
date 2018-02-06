@@ -1,18 +1,21 @@
 import { Injectable } from '@angular/core';
-import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
 
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
+import { AuthService } from 'kfhub_lib';
+import { TalentArchitectConstantsService } from './talentarchitect-constants.service';
+
 @Injectable()
-export class ProjectService {
-    constructor(private http: Http) {}
+export class SuccessprofileService {
+    constructor(
+        private authService: AuthService,
+        private talentArchitectConstants: TalentArchitectConstantsService
+    ) {}
 
     getAssessmentSubscriptions(): Observable<any> {
-        let url = '';
-        return this.http.get(url)
-            .map((res: Response) => res.json())
-            .catch((error: any) => Observable.throw(error.json().error) || 'Server error');
+        let url = this.talentArchitectConstants.getAssessmentsSubscriptionsUrl();
+        return this.authService.authHttpCall('GET', url, null, { applicationName: 'TALENT_ACQUISITION' });
     }
 }

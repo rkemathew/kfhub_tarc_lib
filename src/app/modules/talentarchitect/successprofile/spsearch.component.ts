@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
-import { FilterMetadata } from '../../../shared/models/filtermetadata.model'
+import { FilterMetadata } from 'kfhub_lib'
+import { SuccessprofileService } from '../services/successprofile.service';
 
 @Component({
     selector: 'app-spsearch',
@@ -27,6 +28,10 @@ export class SPSearchComponent implements OnInit {
     public appliedFilters: Array<Object> = [];
     public listView: boolean = true;
 
+    constructor(
+        private successprofileService: SuccessprofileService
+    ) {}
+
     ngOnInit() {
         this.getSubscriptions();
         this.refreshResults(true);
@@ -45,9 +50,10 @@ export class SPSearchComponent implements OnInit {
     }    
 
     getSubscriptions() {
-//        TAcqProjectService.getAssessmentSubscriptions().then(function(result) {
-//            this.subscriptions = result;
-//        });
+        this.successprofileService.getAssessmentSubscriptions()
+            .subscribe((result) => {
+                this.subscriptions = result;
+            });
     }
 
     refreshResults(resetResults){

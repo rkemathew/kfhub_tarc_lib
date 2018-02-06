@@ -2,9 +2,10 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { AppComponent } from './app.component';
-import { LoginComponent } from './shared/modules/auth/login.component';
+import { LoginComponent } from './modules/shared/components/auth/login.component';
 import { SPSearchComponent } from './modules/talentarchitect/successprofile/spsearch.component';
-import { AuthGuardService as AuthGuard } from './shared/services/auth-guard.service';
+
+import { AuthGuardService as AuthGuard } from 'kfhub_lib';
 
 const routes: Routes = [
     { path: '', redirectTo: 'tarch/sp/search', pathMatch: 'full' },

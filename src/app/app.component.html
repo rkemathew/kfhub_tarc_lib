@@ -1,4 +1,4 @@
-<app-header></app-header>
+<app-header [isShowNav]="isAppPages()" (onlogout)="onLogout($event)"></app-header>
 <app-menu *ngIf="isAppPages()"></app-menu>
 <adv-growl [life]="4000"></adv-growl>
 <spinner [backgroundColor]="'#ff0000'" [spinner]="spinkit.skThreeBounce" [debounceDelay]="200"></spinner>

@@ -27,7 +27,8 @@
 
                 <div class="input-group">
                     <div class="input-backdrop"></div>
-                    <input type="text" class="search-profile-bar form-control" [(ngModel)]="searchString" (change)="doSearch()" />
+                    <!-- <input type="text" class="search-profile-bar form-control" [(ngModel)]="searchString" (change)="doSearch()" /> -->
+                    <input type="text" class="search-profile-bar form-control" (change)="doSearch()" />
                     <div *ngIf="!searchString" class="placehold-text">
                         <img src="/assets/images/search.svg" />{{ 'SearchSuccessProfiles' | translate }}
                     </div>
