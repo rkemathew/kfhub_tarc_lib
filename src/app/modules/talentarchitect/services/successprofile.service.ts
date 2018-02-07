@@ -69,11 +69,11 @@ export class SuccessprofileService {
 
         if (filters) {
             var opts = filters.reduce((result, filter) => {
-                let typeName = (filter.type + 's').toUpperCase();
+                let typeName = (filter.type + 'S').toUpperCase();
                 if (result[typeName]) {
-                    result[typeName] = result[typeName].concat(';' + filter.content.name);
+                    result[typeName] = result[typeName].concat(';' + filter.id);
                 } else {
-                    result[typeName] = filter.content.name;
+                    result[typeName] = filter.id;
                 }
                 return result;
             }, {});
@@ -91,8 +91,8 @@ export class SuccessprofileService {
 
         url += '&filterBy=' + filterBy +
             '&filterValues=' + filterValues +
-            '&pageIndex=' + pageIndex || '1' +
-            '&pageSize=' + pageSize || '10';
+            '&pageIndex=' + (pageIndex || '1') +
+            '&pageSize=' + (pageSize || '10');
 
         url = encodeURI(url);
 

@@ -12,9 +12,15 @@
         <div class="main-container">
             <div class="search-filter-section">
                 <div class="search-filter-group">
-                    <p-multiSelect [options]="allGradesFilter" [(ngModel)]="selectedGradesFilter" maxSelectedLabels="0"></p-multiSelect>
-                    <p-multiSelect [options]="allLevelsFilter" [(ngModel)]="selectedLevelsFilter" maxSelectedLabels="0"></p-multiSelect>
-                    <p-multiSelect [options]="allFunctionsFilter" [(ngModel)]="selectedFunctionsFilter" maxSelectedLabels="0"></p-multiSelect>
+                    <p-multiSelect [options]="allGradesFilter" [(ngModel)]="selectedGradesFilter" maxSelectedLabels="0"
+                        [style]="{height: '40px', width: '150px', marginLeft: '10px'}" (onPanelHide)="applyFilter()">
+                    </p-multiSelect>
+                    <p-multiSelect [options]="allLevelsFilter" [(ngModel)]="selectedLevelsFilter" maxSelectedLabels="0"
+                        [style]="{height: '40px', width: '150px', marginLeft: '10px'}" (onPanelHide)="applyFilter()">
+                    </p-multiSelect>
+                    <p-multiSelect [options]="allFunctionsFilter" [(ngModel)]="selectedFunctionsFilter" maxSelectedLabels="0"
+                        [style]="{height: '40px', width: '150px', marginLeft: '10px'}" (onPanelHide)="applyFilter()">
+                    </p-multiSelect>
                 </div>
 
                 <div class="input-group">
@@ -28,10 +34,10 @@
 
                 <div class="applied-filters-well" *ngIf="appliedFilters && appliedFilters.length">
                     <div class="applied-filter" *ngFor="let filter of appliedFilters">
-                        <span class="remove-filter" (click)="removeFilter($index, filter)">X</span>
-                        <span class="filter-content">{{ filter.type | translate }}: {{ filter.content.value }}</span>
+                        <span class="remove-filter" (click)="removeFilter(filter)">X</span>
+                        <span class="filter-content">{{ filter.type | translate }}: {{ filter.name }}</span>
                     </div>
-                    <a class="filter-option-clear" *ngIf="appliedFilters.length" (click)="removeAllFilter()">{{ 'ClearAllFilters' | translate }}</a>
+                    <a class="filter-option-clear" *ngIf="appliedFilters.length" (click)="removeAllFilters()">{{ 'ClearAllFilters' | translate }}</a>
                 </div>
             </div>
 

@@ -12,7 +12,7 @@ import { SuccessprofileService } from '../services/successprofile.service';
 export class SPSearchComponent implements OnInit {
     private metadata: FilterMetadata[] = null;
     private page: string = 'successProfileSearch';
-    private searchString: string = '';//$route.current.params.queryString || '';
+    private searchString: string = '';
     private searchResults: Array<string> = [];
     private pagingInfo: Object = {};
     private pageIndex: number = 1;
@@ -24,13 +24,13 @@ export class SPSearchComponent implements OnInit {
     private scrollingPageIndex: number = 0;
     private reSearch: boolean = false;
     private showFilters: boolean = false;
-    private appliedFilters: Array<Object> = [];
     private allGradesFilter: SelectItem[] = [];
     private allLevelsFilter: SelectItem[] = [];
     private allFunctionsFilter: SelectItem[] = [];
     private selectedGradesFilter: FilterMetadata[] = [];
     private selectedLevelsFilter: FilterMetadata[] = [];
     private selectedFunctionsFilter: FilterMetadata[] = [];
+    private appliedFilters: FilterMetadata[] = [];
     private listView: boolean = true;
 
     constructor(
@@ -57,15 +57,15 @@ export class SPSearchComponent implements OnInit {
                     const f = filterMetadata[key];
                     switch(f.name) {
                         case 'GRADES': this.allGradesFilter = f.options.map(option => {
-                            return { label: option.value, value: { id: option.id, name: option.value, code: option.name } }
+                            return { label: option.value, value: { id: option.id, name: option.value, code: option.name, type: 'GRADE' } }
                         }); break;
 
                         case 'LEVELS': this.allLevelsFilter = f.options.map(option => {
-                            return { label: option.value, value: { id: option.id, name: option.value, code: option.name } }
+                            return { label: option.value, value: { id: option.id, name: option.value, code: option.name, type: 'LEVEL' } }
                         }); break;
 
                         case 'FUNCTIONS': this.allFunctionsFilter = f.options.map(option => {
-                            return { label: option.value, value: { id: option.id, name: option.value, code: option.name } }
+                            return { label: option.value, value: { id: option.id, name: option.value, code: option.name, type: 'FUNCTION' } }
                         }); break;
                     }
                 });
@@ -131,63 +131,49 @@ export class SPSearchComponent implements OnInit {
         setTimeout(this.checkSearch, 300);
     };
 
-    capitalizeFirstChar(filterName) {
-        return filterName.toLowerCase().charAt(0).toUpperCase() + filterName.toLowerCase().slice(1);
-    };
-
     toggleFilters() {
         this.showFilters = !this.showFilters;
     };
 
-    addFilter(type, filter) {
-/*
-        var newFilter = {
-            type: type,
-            content: filter
-        };
+    applyFilter() {
+        this.appliedFilters = [];
+        this.appliedFilters.push.apply(this.appliedFilters, this.selectedGradesFilter);
+        this.appliedFilters.push.apply(this.appliedFilters, this.selectedLevelsFilter);
+        this.appliedFilters.push.apply(this.appliedFilters, this.selectedFunctionsFilter);
+        this.refreshResults(true);
+    }
 
-        let index = this.appliedFilters.findIndex((f) => f.type === type && f.content.name === filter.name);
-        if (index !== -1) {
-            if (index > -1) {
-                this.removeFilter(index, this.appliedFilter);
-            }
-        } else {
-            this.appliedFilters.push(newFilter);
-            console.log("new filter: ", newFilter);
-            newFilter.isFiltered = true;
+    removeFilter(filterToRemove: FilterMetadata) {
+        const appliedFilterIndex = this.appliedFilters.findIndex((appliedFilter: FilterMetadata) => {
+            return appliedFilter.type == filterToRemove.type && appliedFilter.id === filterToRemove.id;
+        });
+
+        this.appliedFilters.splice(appliedFilterIndex, 1);
+
+        switch(filterToRemove.type) {
+            case 'GRADE':
+                this.selectedGradesFilter = this.selectedGradesFilter.filter((filter: FilterMetadata) => {
+                    return (filter.type === filterToRemove.type && filter.id === filterToRemove.id) ? false : true;
+                });
+                break;
+
+            case 'LEVEL': 
+                this.selectedLevelsFilter = this.selectedLevelsFilter.filter((filter: FilterMetadata) => {
+                    return (filter.type === filterToRemove.type && filter.id === filterToRemove.id) ? false : true;
+                });
+                break;
+
+            case 'FUNCTION':
+                this.selectedFunctionsFilter = this.selectedFunctionsFilter.filter((filter: FilterMetadata) => {
+                    return (filter.type === filterToRemove.type && filter.id === filterToRemove.id) ? false : true;
+                });
+                break;
         }
 
         this.refreshResults(true);
-*/
-    };
-
-    isFiltered(type, filter) {
-//        return this.appliedFilters.findIndex((f) => f.type === type && f.content.name === filter.name && f.isFiltered) > -1;
-    }
-
-    removeFilter(index, appliedFilter) {
-/*
-        this.appliedFilters.splice(index, 1);
-
-        switch (appliedFilter.type) {
-            case 'grade':
-                this.selectedGradeFilters = this.selectedGradeFilters.filter((filter) => filter.id !== appliedFilter.content.id);
-                break;
-            case 'level':
-                this.selectedLevelFilters = this.selectedLevelFilters.filter((filter) => filter.id !== appliedFilter.content.id);
-                break;
-            case 'function':
-                this.selectedFunctionFilters = this.selectedFunctionFilters.filter( (filter) => filter.id !== appliedFilter.content.id);
-                break;
-            default:
-                break;
-        };
-
-        this.refreshResults(true);
-*/
     }
     
-    removeAllFilter() {
+    removeAllFilters() {
         this.appliedFilters = [];
         this.selectedGradesFilter = [];
         this.selectedLevelsFilter = [];
@@ -224,20 +210,6 @@ export class SPSearchComponent implements OnInit {
         var sortObj = this.sorting.find((s) => s.sortColumn === colName);
         return sortObj ? sortObj.sortBy : false;
     }
-
-    setFavorite = function(profile) {
-        profile.favorite = !profile.favorite;
-    }
-
-    setListView(listView) {
-        listView = listView;
-    };
-
-    createJobDescription(successProfileId) {
-//        WizardService.createJDFromSP(successProfileId).then(function (res) {
-//            $location.path('/talentarchitect/jobdescription/jobs/new');
-//        })
-    };
 
     loadMoreResults() {
 /*        
