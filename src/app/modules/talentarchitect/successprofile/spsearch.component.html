@@ -11,19 +11,11 @@
     <div class="main-background">
         <div class="main-container">
             <div class="search-filter-section">
-<!--
-                    <div class="search-filter-group">
-                    <dropdown-multiselect checked-options="selectedGradeFilters" checked-options-changed="filtersChanged('grade', value)" class-name="search-filter"
-                        options="allGradesFilters" prompt="{{'Grades' | translate}}">
-                    </dropdown-multiselect>
-                    <dropdown-multiselect checked-options="selected LevelFilters" checked-options-changed="filtersChanged('level', value)" class-name="search-filter"
-                        options="allLevelsFilters" prompt="{{'Levels' | translate}}">
-                    </dropdown-multiselect>
-                    <dropdown-multiselect checked-options="selectedFunctionFilters" checked-options-changed="filtersChanged('function', value)"
-                        class-name="search-filter" options="allFunctionsFilters" prompt="{{'Functions' | translate}}">
-                    </dropdown-multiselect>
+                <div class="search-filter-group">
+                    <p-multiSelect [options]="allGradesFilter" [(ngModel)]="selectedGradesFilter" maxSelectedLabels="0"></p-multiSelect>
+                    <p-multiSelect [options]="allLevelsFilter" [(ngModel)]="selectedLevelsFilter" maxSelectedLabels="0"></p-multiSelect>
+                    <p-multiSelect [options]="allFunctionsFilter" [(ngModel)]="selectedFunctionsFilter" maxSelectedLabels="0"></p-multiSelect>
                 </div>
--->
 
                 <div class="input-group">
                     <div class="input-backdrop"></div>

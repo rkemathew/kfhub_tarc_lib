@@ -4,12 +4,12 @@ import { Observable } from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
-import { AuthService } from 'kfhub_lib';
+import { AuthService, FilterMetadata } from 'kfhub_lib';
 import { TalentArchitectConstantsService } from './talentarchitect-constants.service';
 
 @Injectable()
 export class SuccessprofileService {
-    private SPMetadataCache: any = null;
+    private SPMetadataCache: FilterMetadata[] = null;
 
     constructor(
         private authService: AuthService,
@@ -21,14 +21,14 @@ export class SuccessprofileService {
         return this.authService.authHttpCall('GET', url, null, { applicationName: 'TALENT_ACQUISITION' });
     }
 
-    getMetadata(): Observable<any> {
-        return new Observable<any>((observer) => {
+    getMetadata(): Observable<FilterMetadata[]> {
+        return new Observable<FilterMetadata[]>((observer) => {
             if (this.SPMetadataCache) {
                 observer.next(this.SPMetadataCache);
                 observer.complete();
             } else {
                 let url = this.talentArchitectConstants.getSuccessprofilesUrl() + '/?outputType=METADATA';
-                this.authService.authHttpCall('GET', url)
+                this.authService.authHttpCall<FilterMetadata[]>('GET', url)
                     .subscribe((data: any) => {
                         this.SPMetadataCache = data.metadata;
                         observer.next(this.SPMetadataCache);

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { SelectItem } from 'primeng/api';
 
 import { FilterMetadata } from 'kfhub_lib'
 import { SuccessprofileService } from '../services/successprofile.service';
@@ -9,25 +10,28 @@ import { SuccessprofileService } from '../services/successprofile.service';
     styleUrls: [ 'spsearch.component.less' ]
 })
 export class SPSearchComponent implements OnInit {
-    private metadata: any = null;
+    private metadata: FilterMetadata[] = null;
     private page: string = 'successProfileSearch';
-    public searchString: string = '';//$route.current.params.queryString || '';
-    public searchResults: Array<string> = [];
+    private searchString: string = '';//$route.current.params.queryString || '';
+    private searchResults: Array<string> = [];
     private pagingInfo: Object = {};
     private pageIndex: number = 1;
     private pageSize: number = 20;
     private sorting: Array<Object> = [];
     private subscriptions = null;
-    private selectedFunctionFilters: Array<Object> = [];
-    private selectedLevelFilters: Array<Object> = [];
-    private selectedGradeFilters: Array<Object> = [];
-    public searchLoading: boolean = false;
+    private searchLoading: boolean = false;
     private searchQueueLength: number = 0;
     private scrollingPageIndex: number = 0;
     private reSearch: boolean = false;
     private showFilters: boolean = false;
-    public appliedFilters: Array<Object> = [];
-    public listView: boolean = true;
+    private appliedFilters: Array<Object> = [];
+    private allGradesFilter: SelectItem[] = [];
+    private allLevelsFilter: SelectItem[] = [];
+    private allFunctionsFilter: SelectItem[] = [];
+    private selectedGradesFilter: FilterMetadata[] = [];
+    private selectedLevelsFilter: FilterMetadata[] = [];
+    private selectedFunctionsFilter: FilterMetadata[] = [];
+    private listView: boolean = true;
 
     constructor(
         private successprofileService: SuccessprofileService
@@ -39,17 +43,35 @@ export class SPSearchComponent implements OnInit {
         this.checkSearch();
 
         this.successprofileService.getMetadata()
-            .subscribe((data: any) => {
+            .subscribe((data: FilterMetadata[]) => {
                 this.metadata = data;
-                let successProfileMetadata: any = this.metadata.filter((m) => m.name === 'SEARCH_SUCCESS_PROFILES');
-                console.log('successProfileMetadata', successProfileMetadata);
-                let filterMetadata: any = successProfileMetadata ? Object.assign({}, successProfileMetadata[0].searchOn) : [];
-                console.log('filterMetadata', filterMetadata);
-            });
+                console.log('metadata', this.metadata);
 
-//        filterMetadata.forEach((f) => {
-//            $scope['all' + this.capitalizeFirstChar(f.name) + 'Filters'] = Object.assign({}, f.options);
-//        });
+                let successProfileMetadata: FilterMetadata[] = this.metadata.filter((m: FilterMetadata) => m.name === 'SEARCH_SUCCESS_PROFILES');
+                console.log('successprofilemetadata', successProfileMetadata);
+
+                let filterMetadata: FilterMetadata[] = successProfileMetadata ? Object.assign({}, successProfileMetadata[0].searchOn) : [];
+                console.log('filterMetadata', filterMetadata);
+
+                Object.keys(filterMetadata).forEach((key: string) => {
+                    const f = filterMetadata[key];
+                    switch(f.name) {
+                        case 'GRADES': this.allGradesFilter = f.options.map(option => {
+                            return { label: option.value, value: { id: option.id, name: option.value, code: option.name } }
+                        }); break;
+
+                        case 'LEVELS': this.allLevelsFilter = f.options.map(option => {
+                            return { label: option.value, value: { id: option.id, name: option.value, code: option.name } }
+                        }); break;
+
+                        case 'FUNCTIONS': this.allFunctionsFilter = f.options.map(option => {
+                            return { label: option.value, value: { id: option.id, name: option.value, code: option.name } }
+                        }); break;
+                    }
+                });
+
+                console.log('this.allGradesFilter', this.allGradesFilter);
+            });
 
 //        SPShareService.getPrivacyPolicy('PRODUCTS_HUB');
     }    
@@ -167,9 +189,9 @@ export class SPSearchComponent implements OnInit {
     
     removeAllFilter() {
         this.appliedFilters = [];
-        this.selectedGradeFilters = [];
-        this.selectedLevelFilters = [];
-        this.selectedFunctionFilters = [];
+        this.selectedGradesFilter = [];
+        this.selectedLevelsFilter = [];
+        this.selectedFunctionsFilter = [];
         this.refreshResults(true);
     }
 
