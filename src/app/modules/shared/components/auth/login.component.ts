@@ -33,20 +33,20 @@ export class LoginComponent implements OnInit {
 
     login() {
         var loginInfo: LoginInfo = new LoginInfo(this.email, this.password);
-        this.authService.login(loginInfo).subscribe((res) => {
-            let authInfo: any = res.data;
+        this.authService.login(loginInfo).subscribe((loginData) => {
+            let authInfo: any = loginData;
             this.authService.storeSessionInfo(authInfo);
 
             const userId = authInfo.userId;
-            this.authService.getUser(userId).subscribe((res) => {
-                authInfo.firstName = res.data.firstName;
-                authInfo.lastName = res.data.lastName;
+            this.authService.getUser(userId).subscribe((userData) => {
+                authInfo.firstName = userData.firstName;
+                authInfo.lastName = userData.lastName;
                 authInfo.hasTalentProduct = false;
                 authInfo.hasPayProduct = false;
                 authInfo.hasTalentAcquisitionProduct = false;
                 authInfo.hasPayDataProduct = false;
 
-                res.data.subscriptions[0].productTypes.forEach((productType) => {
+                userData.subscriptions[0].productTypes.forEach((productType) => {
                     switch (productType.id) {
                         case 22: authInfo.hasTalentProduct = true; break;
                         case 23: authInfo.hasPayProduct = true; break;
@@ -77,7 +77,6 @@ export class LoginComponent implements OnInit {
     }
 
     loginPostProcess(authInfo: any) {
-        console.log('authInfo', authInfo);
         this.translate.setDefaultLang(authInfo.locale);
         this.translate.use(authInfo.locale);
 

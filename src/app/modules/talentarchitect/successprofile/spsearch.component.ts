@@ -9,6 +9,7 @@ import { SuccessprofileService } from '../services/successprofile.service';
     styleUrls: [ 'spsearch.component.less' ]
 })
 export class SPSearchComponent implements OnInit {
+    private metadata: any = null;
     private page: string = 'successProfileSearch';
     public searchString: string = '';//$route.current.params.queryString || '';
     public searchResults: Array<string> = [];
@@ -37,10 +38,14 @@ export class SPSearchComponent implements OnInit {
         this.refreshResults(true);
         this.checkSearch();
 
-        // let metadata = SearchService.getMetadata('jobDescriptionSearch')
-//        let metadata: FilterMetadata[] = [];
-//        let successProfileMetadata: FilterMetadata[] = metadata.filter((m) => m.name === 'SEARCH_SUCCESS_PROFILES');
-//        let filterMetadata: FilterMetadata[] = successProfileMetadata ? Object.assign({}, successProfileMetadata[0].searchOn) : [];
+        this.successprofileService.getMetadata()
+            .subscribe((data: any) => {
+                this.metadata = data;
+                let successProfileMetadata: any = this.metadata.filter((m) => m.name === 'SEARCH_SUCCESS_PROFILES');
+                console.log('successProfileMetadata', successProfileMetadata);
+                let filterMetadata: any = successProfileMetadata ? Object.assign({}, successProfileMetadata[0].searchOn) : [];
+                console.log('filterMetadata', filterMetadata);
+            });
 
 //        filterMetadata.forEach((f) => {
 //            $scope['all' + this.capitalizeFirstChar(f.name) + 'Filters'] = Object.assign({}, f.options);
@@ -61,10 +66,11 @@ export class SPSearchComponent implements OnInit {
         this.searchQueueLength++;
         let queuePointer = this.searchQueueLength;
 
-//        SearchService.searchProfile($scope.page, $scope.searchString, $scope.appliedFilters, $scope.sorting, $scope.pageIndex, $scope.pageSize).then(function(response){
-//            this.searchCallback(response, resetResults, queuePointer);
-            this.searchLoading = false;
-//        });
+        this.successprofileService.searchProfile(this.searchString, this.appliedFilters, this.sorting, this.pageIndex, this.pageSize)
+            .subscribe((response) => {
+                this.searchCallback(response, resetResults, queuePointer);
+                this.searchLoading = false;
+            });
     };
 
     searchCallback(response, resetResults, queuePointer) {
