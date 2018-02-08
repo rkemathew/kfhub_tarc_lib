@@ -38,8 +38,15 @@ export class SuccessprofileService {
         });
     }
 
-    searchProfile(searchString, filters, sorting, pageIndex, pageSize, relatedProfileId = null): Observable<any> {
+    searchProfile(searchString: string, filters, sorting, pageIndex: number, pageSize: number, relatedProfileId = null): Observable<any> {
         let url = this.talentArchitectConstants.getSuccessprofilesUrl() + '/?type=SEARCH_SUCCESS_PROFILES';
+
+        console.log('searchString', searchString);
+        console.log('filters', filters);
+        console.log('sorting', sorting);
+        console.log('pageIndex', pageIndex);
+        console.log('pageSize', pageSize);
+        console.log('relatedProfileId', relatedProfileId);
 
         let sortColumn = 'MODIFIED_ON';
         let sortBy = '';

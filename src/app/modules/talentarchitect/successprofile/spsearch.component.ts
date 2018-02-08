@@ -1,4 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
+import { Observable } from 'Rxjs';
+
+import "rxjs/add/operator/debounceTime";
+import "rxjs/add/operator/distinctUntilChanged";
+
 import { SelectItem } from 'primeng/api';
 
 import { FilterMetadata } from 'kfhub_lib'
@@ -11,19 +17,21 @@ import { SuccessprofileService } from '../services/successprofile.service';
 })
 export class SPSearchComponent implements OnInit {
     private metadata: FilterMetadata[] = null;
-    private page: string = 'successProfileSearch';
+
+    private searchControl = new FormControl();
     private searchString: string = '';
     private searchResults: Array<string> = [];
-    private pagingInfo: Object = {};
+
+    private pagingInfo: any = null;
     private pageIndex: number = 1;
     private pageSize: number = 20;
+
     private sorting: Array<Object> = [];
-    private subscriptions = null;
+//    private subscriptions = null;
     private searchLoading: boolean = false;
     private searchQueueLength: number = 0;
     private scrollingPageIndex: number = 0;
-    private reSearch: boolean = false;
-    private showFilters: boolean = false;
+
     private allGradesFilter: SelectItem[] = [];
     private allLevelsFilter: SelectItem[] = [];
     private allFunctionsFilter: SelectItem[] = [];
@@ -31,16 +39,38 @@ export class SPSearchComponent implements OnInit {
     private selectedLevelsFilter: FilterMetadata[] = [];
     private selectedFunctionsFilter: FilterMetadata[] = [];
     private appliedFilters: FilterMetadata[] = [];
-    private listView: boolean = true;
+
+    private cache: Array<number> = [];
+    private itemHeight: number = document.body.clientHeight - 100; // 40;
+
+    private pageByScroll$ = Observable.fromEvent(window, 'scroll')
+        .map(() => window.scrollY)
+        .filter(current => current >=  document.body.clientHeight - window.innerHeight)
+        .debounceTime(350) 
+        .filter(page => this.cache[page-1] === undefined) 
+        .map(y => Math.ceil((y + window.innerHeight) / (this.itemHeight * this.pageSize)))
+        .subscribe((page: number) => {
+            page--;
+            console.log('The page number is ', page);
+            this.cache.push(page);
+            this.loadMoreResults(page);
+        });
 
     constructor(
         private successprofileService: SuccessprofileService
-    ) {}
+    ) {
+        this.searchControl.valueChanges
+            .debounceTime(350)
+            .distinctUntilChanged()
+            .subscribe((value: string) => {
+                this.searchString = value;
+                this.refreshResults(true);
+            });
+    }
 
     ngOnInit() {
-        this.getSubscriptions();
+//        this.getSubscriptions();
         this.refreshResults(true);
-        this.checkSearch();
 
         this.successprofileService.getMetadata()
             .subscribe((data: FilterMetadata[]) => {
@@ -76,13 +106,16 @@ export class SPSearchComponent implements OnInit {
 //        SPShareService.getPrivacyPolicy('PRODUCTS_HUB');
     }    
 
+/*
+ * Ronnie: TODO: Need to reconsider if this function is needed
+ * 
     getSubscriptions() {
         this.successprofileService.getAssessmentSubscriptions()
             .subscribe((result) => {
                 this.subscriptions = result;
             });
     }
-
+*/
     refreshResults(resetResults){
         this.searchLoading = true;
         this.searchQueueLength++;
@@ -120,19 +153,7 @@ export class SPSearchComponent implements OnInit {
         });
 
         this.pagingInfo = Object.assign({}, response.paging);
-    };
-
-    checkSearch() {
-        if (this.reSearch) {
-            this.reSearch = false;
-            this.refreshResults(true);
-        }
-
-        setTimeout(this.checkSearch, 300);
-    };
-
-    toggleFilters() {
-        this.showFilters = !this.showFilters;
+        console.log('pagingInfo', this.pagingInfo);
     };
 
     applyFilter() {
@@ -211,8 +232,8 @@ export class SPSearchComponent implements OnInit {
         return sortObj ? sortObj.sortBy : false;
     }
 
-    loadMoreResults() {
 /*        
+    loadMoreResults() {
         if ((this.scrollingPageIndex + 1) > this.pagingInfo.totalPages || !this.searchResults.length) {
             return;
         }
@@ -222,36 +243,13 @@ export class SPSearchComponent implements OnInit {
             this.pageIndex = this.scrollingPageIndex;
             this.refreshResults(false);
         }
-*/
     };
-
-    // angular.element($window).on('scroll', loadMoreResults);
-    // $scope.$on('$destroy', function () {
-    //     angular.element($window).off('scroll', loadMoreResults);
-    // });
-
-    // Update the applied filters when the filter selection is changed
-    filtersChanged(type, value) {
-        let filters = value.map((filter) => {
-            return {
-                content: filter,
-                type: type,
-            };
-        });
-
-/*
-        this.appliedFilters = _
-            .chain(this.appliedFilters)
-            .reject(function (filter) {
-                return filter.type === type;
-            })
-            .concat(filters)
-            .value();
-
-        this.refreshResults(true);
 */
-    };
 
-    doSearch() {
-    }
+    loadMoreResults(page) {
+        if (page <= this.pagingInfo.totalPages) {
+            this.pageIndex = page - 1;
+            this.refreshResults(false);
+        }
+    };
 }
