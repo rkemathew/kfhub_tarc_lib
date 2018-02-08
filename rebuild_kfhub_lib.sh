@@ -5,3 +5,4 @@ cd dist
 npm pack
 cd $DIR
 npm install kfhub_lib --force
+
