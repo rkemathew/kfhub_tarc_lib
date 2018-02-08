@@ -604,3 +604,30 @@
 @stylesGaugeHighlightShadow:    0 0 12px fade( @primaryColor, 80% ), 0 0 20px fade( @primaryColor, 80% );
 @climateGaugeHighlightShadow:   0 0 12px fade( @tertiaryColor, 80% ), 0 0 20px fade( @tertiaryColor, 80% );
 @gaugeNeedleShadow:             0 0 8px fade( @white, 80% ), 0 0 0 2px fade( @white, 75% );
+
+// From the old Icons.less File
+
+@icon-path: '/assets/images/';
+@chevron-down: 'icon-caret-down.svg';
+@chevron-right: 'icon-caret-right-white.svg';
+@check: 'check.svg';
+@check-white: 'check-white.svg';
+@close: 'close.svg';
+@inquiry: 'icon-inquiry.svg';
+@new-app: 'new-app.svg';
+@download: 'download.svg';
+@expert-chat: "icon-ask-the-experts.svg";
+
+.icon(@icon-name) {
+	background-position: center;
+	background-image: ~"url(@{icon-path}@{icon-name})";
+	background-repeat: no-repeat;
+	background-size: auto;
+}
+
+.icon-important(@icon-name) {
+	background-position: center !important;
+	background-image: ~"url(@{icon-path}@{icon-name})" !important;
+	background-repeat: no-repeat !important;
+	background-size: auto !important;
+}
