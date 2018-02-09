@@ -5,9 +5,10 @@ import { TranslateModule } from '@ngx-translate/core';
 import { DropdownModule } from 'primeng/primeng';
 import { MultiSelectModule } from 'primeng/multiselect';
 
+import { SPSearchComponent } from './components/successprofile/spsearch.component';
+
 import { SuccessprofileService } from './services/successprofile.service';
 import { TalentArchitectConstantsService } from './services/talentarchitect-constants.service';
-import { SPSearchComponent } from './successprofile/spsearch.component';
 
 @NgModule({
     imports: [
@@ -19,6 +20,9 @@ import { SPSearchComponent } from './successprofile/spsearch.component';
         MultiSelectModule
     ],
     declarations: [
+        SPSearchComponent
+    ],
+    exports: [
         SPSearchComponent
     ],
     providers: [

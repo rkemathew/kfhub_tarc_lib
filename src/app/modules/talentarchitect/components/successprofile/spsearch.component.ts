@@ -8,7 +8,7 @@ import "rxjs/add/operator/distinctUntilChanged";
 import { SelectItem } from 'primeng/api';
 
 import { FilterMetadata } from 'kfhub_lib'
-import { SuccessprofileService } from '../services/successprofile.service';
+import { SuccessprofileService } from '../../services/successprofile.service';
 
 @Component({
     selector: 'app-spsearch',
@@ -232,23 +232,9 @@ export class SPSearchComponent implements OnInit {
         return sortObj ? sortObj.sortBy : false;
     }
 
-/*        
-    loadMoreResults() {
-        if ((this.scrollingPageIndex + 1) > this.pagingInfo.totalPages || !this.searchResults.length) {
-            return;
-        }
-
-        if (this.page === 'successProfileSearch' && !this.searchLoading && $(window).scrollTop() + $(window).height() > $(document).height() - 100) {
-            this.scrollingPageIndex += 1;
-            this.pageIndex = this.scrollingPageIndex;
-            this.refreshResults(false);
-        }
-    };
-*/
-
     loadMoreResults(page) {
         if (page <= this.pagingInfo.totalPages) {
-            this.pageIndex = page - 1;
+            this.pageIndex = page > 1 ? page - 1 : this.pageIndex++;
             this.refreshResults(false);
         }
     };
