@@ -4,7 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './modules/shared/components/auth/login.component';
 import { SandboxMainComponent } from './modules/sandboxes/main/sanboxmain.component';
-import { SPSearchComponent } from './modules/components/coarsegrained/successprofile/search/spsearch.component';
+import { SPSearchComponent } from './modules/components/macro/successprofile/search/spsearch.component';
 
 import { AuthGuardService as AuthGuard } from 'kfhub_lib';
 
