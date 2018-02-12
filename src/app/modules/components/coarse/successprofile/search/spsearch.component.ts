@@ -8,12 +8,12 @@ import "rxjs/add/operator/distinctUntilChanged";
 import { SelectItem } from 'primeng/api';
 
 import { FilterMetadata } from 'kfhub_lib'
-import { SuccessprofileService } from '../../services/successprofile.service';
+import { SuccessprofileService } from '../../../../services/successprofile.service';
 
 @Component({
-    selector: 'app-spsearch',
-    templateUrl: 'spsearch.component.html',
-    styleUrls: [ 'spsearch.component.less' ]
+    selector: 'kf-spsearch',
+    templateUrl: './spsearch.component.html',
+    styleUrls: [ './spsearch.component.less' ]
 })
 export class SPSearchComponent implements OnInit {
     private metadata: FilterMetadata[] = null;

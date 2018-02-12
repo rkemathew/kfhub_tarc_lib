@@ -3,14 +3,16 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './modules/shared/components/auth/login.component';
-import { SPSearchComponent } from './modules/talentarchitect/components/successprofile/spsearch.component';
+import { SandboxMainComponent } from './modules/sandboxes/main/sanboxmain.component';
+import { SPSearchComponent } from './modules/components/coarse/successprofile/search/spsearch.component';
 
 import { AuthGuardService as AuthGuard } from 'kfhub_lib';
 
 const routes: Routes = [
-    { path: '', redirectTo: 'tarch/sp/search', pathMatch: 'full' },
+    { path: '', redirectTo: 'tarc/sp/search', pathMatch: 'full' },
     { path: 'login', component: LoginComponent },
-    { path: 'tarch/sp/search', component: SPSearchComponent, canActivate: [AuthGuard] },
+    { path: 'sandboxmain', component: SandboxMainComponent },
+    { path: 'tarc/sp/search', component: SPSearchComponent, canActivate: [AuthGuard] },
     { path: '**', redirectTo: 'login', pathMatch: 'full' }
 ];
 

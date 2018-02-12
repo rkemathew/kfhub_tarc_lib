@@ -17,14 +17,15 @@ import { NgHttpLoaderModule } from 'ng-http-loader/ng-http-loader.module';
 import { MessageService } from 'primeng/components/common/messageservice';
 
 import { AppRoutingModule } from './app-routing.module';
-import { TalentArchitectModule } from './modules/talentarchitect/talentarchitect.module';
+import { SandboxesModule } from './modules/sandboxes/sandboxes.module';
+import { TalentArchitectModule } from './modules/components/talentarchitect.module';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './modules/shared/components/auth/login.component';
 
 import { UtilsService } from './modules/shared/services/utils.service';
 
-import { SharedModule, AuthGuardService, AuthService, PopupService } from 'kfhub_lib';
+import { SharedModule, KFComponentsModule, AuthGuardService, AuthService, PopupService } from 'kfhub_lib';
 
 export function HttpLoaderFactory(http: HttpClient) {
     return new TranslateHttpLoader(http, "./languages/", ".json");
@@ -49,12 +50,15 @@ export function HttpLoaderFactory(http: HttpClient) {
         BootstrapModalModule,
         AdvGrowlModule,
         AppRoutingModule,
+        SandboxesModule,
         SharedModule,
+        KFComponentsModule,
         TalentArchitectModule
     ],
     declarations: [
         AppComponent,
-        LoginComponent    ],
+        LoginComponent
+    ],
     providers: [
         TranslateService,
         MessageService,

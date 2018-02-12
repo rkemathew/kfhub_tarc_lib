@@ -5,10 +5,10 @@ import { TranslateModule } from '@ngx-translate/core';
 import { DropdownModule } from 'primeng/primeng';
 import { MultiSelectModule } from 'primeng/multiselect';
 
-import { SPSearchComponent } from './components/successprofile/spsearch.component';
+import { SPSearchComponent } from './coarse/successprofile/search/spsearch.component';
 
-import { SuccessprofileService } from './services/successprofile.service';
-import { TalentArchitectConstantsService } from './services/talentarchitect-constants.service';
+import { SuccessprofileService } from '../services/successprofile.service';
+import { TalentArchitectConstantsService } from '../services/talentarchitect-constants.service';
 
 @NgModule({
     imports: [

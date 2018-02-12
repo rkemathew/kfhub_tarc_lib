@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { SharedConstantsService } from '../../../modules/shared/services/shared-constants.service';
+import { SharedConstantsService } from '../shared/services/shared-constants.service';
 
 @Injectable()
 export class TalentArchitectConstantsService extends SharedConstantsService {
