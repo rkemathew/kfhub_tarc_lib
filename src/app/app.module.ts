@@ -17,8 +17,7 @@ import { NgHttpLoaderModule } from 'ng-http-loader/ng-http-loader.module';
 import { MessageService } from 'primeng/components/common/messageservice';
 
 import { AppRoutingModule } from './app-routing.module';
-import { SandboxesModule } from './modules/sandboxes/sandboxes.module';
-import { TalentArchitectModule } from './modules/components/talentarchitect.module';
+import { TalentArchitectModule } from './modules/talentarchitect.module';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './modules/shared/components/auth/login.component';
@@ -50,7 +49,6 @@ export function HttpLoaderFactory(http: HttpClient) {
         BootstrapModalModule,
         AdvGrowlModule,
         AppRoutingModule,
-        SandboxesModule,
         SharedModule,
         KFComponentsModule,
         TalentArchitectModule
