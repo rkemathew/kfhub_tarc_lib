@@ -4,15 +4,15 @@ import { Observable } from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
-import { AuthService, FilterMetadata } from 'kfhub_lib';
+import { KFAuthService, KFFilterMetadata } from 'kfhub_lib';
 import { KFTarcTalentArchitectConstantsService } from './kftarc.talentarchitect-constants.service';
 
 @Injectable()
 export class KFTarcSuccessprofileService {
-    private SPMetadataCache: FilterMetadata[] = null;
+    private SPMetadataCache: KFFilterMetadata[] = null;
 
     constructor(
-        private authService: AuthService,
+        private authService: KFAuthService,
         private talentArchitectConstants: KFTarcTalentArchitectConstantsService
     ) {}
 
@@ -21,14 +21,14 @@ export class KFTarcSuccessprofileService {
         return this.authService.authHttpCall('GET', url, null, { applicationName: 'TALENT_ACQUISITION' });
     }
 
-    getMetadata(): Observable<FilterMetadata[]> {
-        return new Observable<FilterMetadata[]>((observer) => {
+    getMetadata(): Observable<KFFilterMetadata[]> {
+        return new Observable<KFFilterMetadata[]>((observer) => {
             if (this.SPMetadataCache) {
                 observer.next(this.SPMetadataCache);
                 observer.complete();
             } else {
                 let url = this.talentArchitectConstants.getSuccessprofilesUrl() + '/?outputType=METADATA';
-                this.authService.authHttpCall<FilterMetadata[]>('GET', url)
+                this.authService.authHttpCall<KFFilterMetadata[]>('GET', url)
                     .subscribe((data: any) => {
                         this.SPMetadataCache = data.metadata;
                         observer.next(this.SPMetadataCache);

@@ -21,7 +21,7 @@ import { KFTarcTalentArchitectModule } from './modules/kftarc.talentarchitect.mo
 
 import { KFTarcAppComponent } from './kftarc.app.component';
 
-import { SharedModule, KFComponentsModule, AuthGuardService, AuthService, PopupService } from 'kfhub_lib';
+import { KFSharedModule, KFComponentsModule, KFAuthGuardService, KFAuthService, KFPopupService } from 'kfhub_lib';
 
 export function HttpLoaderFactory(http: HttpClient) {
     return new TranslateHttpLoader(http, "./languages/", ".json");
@@ -46,7 +46,7 @@ export function HttpLoaderFactory(http: HttpClient) {
         BootstrapModalModule,
         AdvGrowlModule,
         KFTarcAppRoutingModule,
-        SharedModule,
+        KFSharedModule,
         KFComponentsModule,
         KFTarcTalentArchitectModule
     ],
@@ -56,9 +56,9 @@ export function HttpLoaderFactory(http: HttpClient) {
     providers: [
         TranslateService,
         MessageService,
-        AuthGuardService,
-        AuthService,
-        PopupService
+        KFAuthGuardService,
+        KFAuthService,
+        KFPopupService
     ],
     bootstrap: [
         KFTarcAppComponent

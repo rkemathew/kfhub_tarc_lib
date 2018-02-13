@@ -5,7 +5,7 @@ import { KFTarcSandboxMainComponent } from './modules/sandboxes/main/kftarc.sand
 import { KFTarcLoginProxyComponent } from './modules/shared/components/auth/kftarc.loginproxy.component';
 import { KFTarcSPSearchComponent } from './modules/components/macro/successprofile/search/kftarc.spsearch.component';
 
-import { AuthGuardService as AuthGuard, SharedModule  } from 'kfhub_lib';
+import { KFAuthGuardService as AuthGuard, KFSharedModule  } from 'kfhub_lib';
 
 const routes: Routes = [
     { path: '', redirectTo: 'tarc/sp/search', pathMatch: 'full' },

@@ -7,7 +7,7 @@ import "rxjs/add/operator/distinctUntilChanged";
 
 import { SelectItem } from 'primeng/api';
 
-import { FilterMetadata } from 'kfhub_lib'
+import { KFFilterMetadata as FilterMetadata } from 'kfhub_lib'
 import { KFTarcSuccessprofileService as SuccessprofileService } from '../../../../services/kftarc.successprofile.service';
 
 @Component({

@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { Spinkit } from 'ng-http-loader/spinkits';
 
-import { AuthService, UtilsService } from 'kfhub_lib';
+import { KFAuthService, KFUtilsService } from 'kfhub_lib';
 
 @Component({
     selector: 'kftarc-root',
@@ -14,8 +14,8 @@ export class KFTarcAppComponent {
     
     constructor(
         private router: Router,
-        private authService: AuthService,
-        private utilsService: UtilsService
+        private authService: KFAuthService,
+        private utilsService: KFUtilsService
     ){};
 
     isAppPages(): boolean {
