@@ -9,7 +9,10 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "packagr": "ng-packagr -p ng-package.json"
+    "packagr": "ng-packagr -p ng-package.json",
+    "rebuild:less": "bash scripts/rebuild_kfhub_less.sh",
+    "rebuild:lib": "bash scripts/rebuild_kfhub_lib.sh",
+    "rebuild:module": "bash scripts/rebuild_kfhub_module.sh"
   },
   "private": true,
   "dependencies": {

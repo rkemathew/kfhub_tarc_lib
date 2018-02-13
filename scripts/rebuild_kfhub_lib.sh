@@ -4,5 +4,5 @@ npm run packagr
 cd dist
 npm pack
 cd $DIR
-npm install kfhub_lib --force
-
+rm -rf ./node_modules/kfhub_lib
+npm install
