@@ -1,3 +1,3 @@
-export * from './src/app/modules/talentarchitect.module';
+export * from './src/app/modules/kftarc.talentarchitect.module';
 
-export { SuccessprofileService } from './src/app/modules/services/successprofile.service';
+export { KFTarcSuccessprofileService } from './src/app/modules/services/kftarc.successprofile.service';

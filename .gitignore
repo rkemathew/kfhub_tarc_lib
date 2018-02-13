@@ -11,6 +11,9 @@
 # ng-packagr Temp Folder
 .ng_pkg_build/
 
+# Generated Library Files
+kfhub*.tgz
+
 # IDEs and editors
 /.idea
 .project
