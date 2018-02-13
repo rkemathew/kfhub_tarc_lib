@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { environment } from '../../../../environments/environment';
 
 @Injectable()
-export class SharedConstantsService {
+export class KFTarcSharedConstantsService {
     public APP_NAME_CORE = 'PRODUCTS_HUB';
     public API_VERSION = '/v1';
     public LOGIN_URL = '/actions/login';

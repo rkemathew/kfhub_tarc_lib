@@ -2,15 +2,14 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { Spinkit } from 'ng-http-loader/spinkits';
 
-import { AuthService } from 'kfhub_lib';
-import { UtilsService } from './modules/shared/services/utils.service';
+import { AuthService, UtilsService } from 'kfhub_lib';
 
 @Component({
-    selector: 'app-root',
-    templateUrl: 'app.component.html',
-    styleUrls: [ 'app.component.less' ]
+    selector: 'kftarc-root',
+    templateUrl: 'kftarc.app.component.html',
+    styleUrls: [ 'kftarc.app.component.less' ]
 })
-export class AppComponent {
+export class KFTarcAppComponent {
     public spinkit = Spinkit;
     
     constructor(

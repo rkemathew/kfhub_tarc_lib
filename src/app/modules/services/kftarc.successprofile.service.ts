@@ -5,15 +5,15 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
 import { AuthService, FilterMetadata } from 'kfhub_lib';
-import { TalentArchitectConstantsService } from './talentarchitect-constants.service';
+import { KFTarcTalentArchitectConstantsService } from './kftarc.talentarchitect-constants.service';
 
 @Injectable()
-export class SuccessprofileService {
+export class KFTarcSuccessprofileService {
     private SPMetadataCache: FilterMetadata[] = null;
 
     constructor(
         private authService: AuthService,
-        private talentArchitectConstants: TalentArchitectConstantsService
+        private talentArchitectConstants: KFTarcTalentArchitectConstantsService
     ) {}
 
     getAssessmentSubscriptions(): Observable<any> {

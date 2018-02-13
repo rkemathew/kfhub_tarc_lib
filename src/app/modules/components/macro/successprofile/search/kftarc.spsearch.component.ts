@@ -8,14 +8,14 @@ import "rxjs/add/operator/distinctUntilChanged";
 import { SelectItem } from 'primeng/api';
 
 import { FilterMetadata } from 'kfhub_lib'
-import { SuccessprofileService } from '../../../../services/successprofile.service';
+import { KFTarcSuccessprofileService as SuccessprofileService } from '../../../../services/kftarc.successprofile.service';
 
 @Component({
-    selector: 'kf-spsearch',
-    templateUrl: './spsearch.component.html',
-    styleUrls: [ './spsearch.component.less' ]
+    selector: 'kftarc-spsearch',
+    templateUrl: './kftarc.spsearch.component.html',
+    styleUrls: [ './kftarc.spsearch.component.less' ]
 })
-export class SPSearchComponent implements OnInit {
+export class KFTarcSPSearchComponent implements OnInit {
     private metadata: FilterMetadata[] = null;
 
     private searchControl = new FormControl();

@@ -16,13 +16,10 @@ import { NgHttpLoaderModule } from 'ng-http-loader/ng-http-loader.module';
 
 import { MessageService } from 'primeng/components/common/messageservice';
 
-import { AppRoutingModule } from './app-routing.module';
-import { TalentArchitectModule } from './modules/talentarchitect.module';
+import { KFTarcAppRoutingModule } from './kftarc.app-routing.module';
+import { KFTarcTalentArchitectModule } from './modules/kftarc.talentarchitect.module';
 
-import { AppComponent } from './app.component';
-import { LoginComponent } from './modules/shared/components/auth/login.component';
-
-import { UtilsService } from './modules/shared/services/utils.service';
+import { KFTarcAppComponent } from './kftarc.app.component';
 
 import { SharedModule, KFComponentsModule, AuthGuardService, AuthService, PopupService } from 'kfhub_lib';
 
@@ -48,26 +45,26 @@ export function HttpLoaderFactory(http: HttpClient) {
         ModalModule.forRoot(),
         BootstrapModalModule,
         AdvGrowlModule,
-        AppRoutingModule,
+        KFTarcAppRoutingModule,
         SharedModule,
         KFComponentsModule,
-        TalentArchitectModule
+        KFTarcTalentArchitectModule
     ],
     declarations: [
-        AppComponent,
-        LoginComponent
+        KFTarcAppComponent
     ],
     providers: [
         TranslateService,
         MessageService,
         AuthGuardService,
         AuthService,
-        PopupService,
-        UtilsService
+        PopupService
     ],
-    bootstrap: [AppComponent]
+    bootstrap: [
+        KFTarcAppComponent
+    ]
 })
-export class AppModule {
+export class KFTarcAppModule {
     constructor(private translate: TranslateService) {
         translate.addLangs(['en', 'de', 'es-ar', 'ja', 'pl', 'tr', 'zh']);
         translate.setDefaultLang('en');

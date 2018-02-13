@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SandboxMainComponent } from './main/sanboxmain.component';
+import { KFTarcSandboxMainComponent } from './main/kftarc.sandboxmain.component';
 import { KFComponentsModule } from 'kfhub_lib';
 
 @NgModule({
@@ -9,11 +9,11 @@ import { KFComponentsModule } from 'kfhub_lib';
         KFComponentsModule
     ],
     declarations: [
-        SandboxMainComponent
+        KFTarcSandboxMainComponent
     ],
     exports: [
-        SandboxMainComponent
+        KFTarcSandboxMainComponent
     ],
     providers: []
 })
-export class SandboxesModule {}
+export class KFTarcSandboxesModule {}

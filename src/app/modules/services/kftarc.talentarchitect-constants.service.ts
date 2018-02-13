@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { SharedConstantsService } from '../shared/services/shared-constants.service';
+import { KFTarcSharedConstantsService } from '../shared/services/kftarc.shared-constants.service';
 
 @Injectable()
-export class TalentArchitectConstantsService extends SharedConstantsService {
+export class KFTarcTalentArchitectConstantsService extends KFTarcSharedConstantsService {
     public API_VERSION = '/v1/hrms';
     public SUBSCRIPTIONS_URL = '/assessments/subscriptions';
     public SUCCESSPROFILES_URL= '/successprofiles';
