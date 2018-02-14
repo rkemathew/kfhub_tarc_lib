@@ -6,7 +6,7 @@ import { KFTarcJDSearchComponent } from '../../components/macro/jobdescription/s
 
 const routes: Route[] = [
     { path: 'tarc/sp/search', component: KFTarcSPSearchComponent },
-    { path: 'tarc/sp/search', component: KFTarcJDSearchComponent },
+    { path: 'tarc/jd/search', component: KFTarcJDSearchComponent },
 ];
 
 @Injectable()

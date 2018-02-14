@@ -10,10 +10,12 @@ import { KFAuthGuardService as AuthGuard, KFSharedModule  } from 'kfhub_lib';
 
 const routes: Routes = [
     { path: '', redirectTo: 'tarc/sp/search', pathMatch: 'full' },
+/*
     { path: 'login', component: KFTarcLoginProxyComponent },
     { path: 'sandboxmain', component: KFTarcSandboxMainComponent },
     { path: 'tarc/sp/search', component: KFTarcSPSearchComponent, canActivate: [AuthGuard] },
     { path: 'tarc/jd/search', component: KFTarcJDSearchComponent, canActivate: [AuthGuard] },
+*/
     { path: '**', redirectTo: 'login', pathMatch: 'full' }
 ];
 
