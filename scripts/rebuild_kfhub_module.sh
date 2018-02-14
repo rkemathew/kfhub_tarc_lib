@@ -13,9 +13,11 @@ case $1 in
 
 *)
     echo "Please include one of the following arguments to this command:"
-    echo "tarc - Talent Architect (Profile Management)"
-    echo "tacq - Talent Acquisition"
-    echo "orgp - Organization Performance"
+    echo "    tarc - Talent Architect (Profile Management)"
+    echo "    tacq - Talent Acquisition"
+    echo "    orgp - Organization Performance"
+    echo "Usage Example:"
+    echo "    npm run rebuild:module -- tarc"
     ;;
 
 esac
