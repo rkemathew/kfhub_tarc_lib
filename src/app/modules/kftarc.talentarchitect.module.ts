@@ -11,6 +11,8 @@ import { KFTarcJDSearchComponent } from './components/macro/jobdescription/searc
 import { KFTarcSuccessprofileService } from './services/kftarc.successprofile.service';
 import { KFTarcJobDescriptionService } from './services/kftarc.jobdescription.service';
 import { KFTarcTalentArchitectConstantsService } from './services/kftarc.talentarchitect-constants.service';
+import { KFTarcRoutesService } from './shared/services/kftarc.routes.service';
+
 import { KFTarcSandboxesModule } from './sandboxes/kftarc.sandboxes.module';
 import { KFTarcSharedModule } from './shared/kftarc.shared.module';
 
@@ -33,10 +35,15 @@ import { KFTarcSharedModule } from './shared/kftarc.shared.module';
         KFTarcSPSearchComponent,
         KFTarcJDSearchComponent
     ],
+    entryComponents: [
+        KFTarcSPSearchComponent,
+        KFTarcJDSearchComponent
+    ],
     providers: [
         KFTarcSuccessprofileService,
         KFTarcJobDescriptionService,
-        KFTarcTalentArchitectConstantsService
+        KFTarcTalentArchitectConstantsService,
+        KFTarcRoutesService
     ]
 })
 export class KFTarcTalentArchitectModule { }
