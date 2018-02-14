@@ -15,6 +15,7 @@ import { KFTarcRoutesService } from './shared/services/kftarc.routes.service';
 
 import { KFTarcSandboxesModule } from './sandboxes/kftarc.sandboxes.module';
 import { KFTarcSharedModule } from './shared/kftarc.shared.module';
+import { KFAuthGuardService } from 'kfhub_lib';
 
 @NgModule({
     imports: [
@@ -40,10 +41,11 @@ import { KFTarcSharedModule } from './shared/kftarc.shared.module';
         KFTarcJDSearchComponent
     ],
     providers: [
+        KFTarcRoutesService,
+        KFTarcTalentArchitectConstantsService,
+        KFAuthGuardService,
         KFTarcSuccessprofileService,
         KFTarcJobDescriptionService,
-        KFTarcTalentArchitectConstantsService,
-        KFTarcRoutesService
     ]
 })
 export class KFTarcTalentArchitectModule { }
