@@ -14,6 +14,9 @@ import { KFComponentsModule } from 'kfhub_lib';
     exports: [
         KFTarcSandboxMainComponent
     ],
+    entryComponents: [
+        KFTarcSandboxMainComponent
+    ],
     providers: []
 })
 export class KFTarcSandboxesModule {}

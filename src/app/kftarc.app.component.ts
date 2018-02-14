@@ -4,6 +4,7 @@ import { Spinkit } from 'ng-http-loader/spinkits';
 
 import { KFRoutesService, KFAuthService, KFUtilsService, KFMenuItem } from 'kfhub_lib';
 import { KFTarcRoutesService } from './modules/shared/services/kftarc.routes.service';
+import { KFTarcSandboxMainComponent } from './modules/sandboxes/main/kftarc.sandboxmain.component';
 
 const INITIAL_ROUTE_PATH: string = 'tarc/sp/search';
 const DEFAULT_ROUTE_PATH: string = 'login';
@@ -49,9 +50,12 @@ export class KFTarcAppComponent implements OnInit {
     getRoutes(): Route[] {
         let routes: Route[] = [];
         routes.push(this.getInitialRoute());
-        this.getKFRoutes().forEach((route: Route) => routes.push(route));
-        this.getKFTarcRoutes().forEach((route: Route) => routes.push(route));
+        routes.push.apply(routes, this.getKFRoutes());
+        routes.push.apply(routes, this.getKFTarcRoutes());
         routes.push(this.getDefaultRoute());
+
+        console.log(routes);
+
         return routes;
     }
 
@@ -68,7 +72,13 @@ export class KFTarcAppComponent implements OnInit {
     }
 
     getKFTarcRoutes(): Route[] {
-        return this.kftarcRoutesService.getRoutes();
+        let routes: Route[] = [
+            { path: 'sandboxmain', component: KFTarcSandboxMainComponent }
+        ];
+
+        const kftarcRoutes: Route[] = this.kftarcRoutesService.getRoutes();
+        routes.push.apply(routes, kftarcRoutes);
+        return routes;
     }
 
     isAppPages(): boolean {
