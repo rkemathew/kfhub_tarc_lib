@@ -6,8 +6,10 @@ import { DropdownModule } from 'primeng/primeng';
 import { MultiSelectModule } from 'primeng/multiselect';
 
 import { KFTarcSPSearchComponent } from './components/macro/successprofile/search/kftarc.spsearch.component';
+import { KFTarcJDSearchComponent } from './components/macro/jobdescription/search/kftarc.jdsearch.component';
 
 import { KFTarcSuccessprofileService } from './services/kftarc.successprofile.service';
+import { KFTarcJobDescriptionService } from './services/kftarc.jobdescription.service';
 import { KFTarcTalentArchitectConstantsService } from './services/kftarc.talentarchitect-constants.service';
 import { KFTarcSandboxesModule } from './sandboxes/kftarc.sandboxes.module';
 import { KFTarcSharedModule } from './shared/kftarc.shared.module';
@@ -24,13 +26,16 @@ import { KFTarcSharedModule } from './shared/kftarc.shared.module';
         KFTarcSharedModule
     ],
     declarations: [
-        KFTarcSPSearchComponent
+        KFTarcSPSearchComponent,
+        KFTarcJDSearchComponent
     ],
     exports: [
-        KFTarcSPSearchComponent
+        KFTarcSPSearchComponent,
+        KFTarcJDSearchComponent
     ],
     providers: [
         KFTarcSuccessprofileService,
+        KFTarcJobDescriptionService,
         KFTarcTalentArchitectConstantsService
     ]
 })

@@ -1,5 +1,5 @@
 <kf-header [isShowNav]="isAppPages()" (onlogout)="onLogout($event)"></kf-header>
-<kf-menu *ngIf="isAppPages()"></kf-menu>
+<kf-menu *ngIf="isAppPages()" [menuItems]="menuItems"></kf-menu>
 <adv-growl [life]="4000"></adv-growl>
 <spinner [backgroundColor]="'#ff0000'" [spinner]="spinkit.skThreeBounce" [debounceDelay]="200"></spinner>
 <router-outlet></router-outlet>

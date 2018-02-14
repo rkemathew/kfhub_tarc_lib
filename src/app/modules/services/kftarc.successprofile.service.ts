@@ -12,8 +12,8 @@ export class KFTarcSuccessprofileService {
     private SPMetadataCache: KFFilterMetadata[] = null;
 
     constructor(
-        private authService: KFAuthService,
-        private talentArchitectConstants: KFTarcTalentArchitectConstantsService
+        public authService: KFAuthService,
+        public talentArchitectConstants: KFTarcTalentArchitectConstantsService
     ) {}
 
     getAssessmentSubscriptions(): Observable<any> {
@@ -27,7 +27,7 @@ export class KFTarcSuccessprofileService {
                 observer.next(this.SPMetadataCache);
                 observer.complete();
             } else {
-                let url = this.talentArchitectConstants.getSuccessprofilesUrl() + '/?outputType=METADATA';
+                let url = this.talentArchitectConstants.getSuccessprofilesBaseUrl() + '/?outputType=METADATA';
                 this.authService.authHttpCall<KFFilterMetadata[]>('GET', url)
                     .subscribe((data: any) => {
                         this.SPMetadataCache = data.metadata;
@@ -38,8 +38,12 @@ export class KFTarcSuccessprofileService {
         });
     }
 
+    getSearchUrl(): string {
+        return this.talentArchitectConstants.getSuccessprofilesUrl();
+    }
+
     searchProfile(searchString: string, filters, sorting, pageIndex: number, pageSize: number, relatedProfileId = null): Observable<any> {
-        let url = this.talentArchitectConstants.getSuccessprofilesUrl() + '/?type=SEARCH_SUCCESS_PROFILES';
+        let url = this.getSearchUrl();
 
         console.log('searchString', searchString);
         console.log('filters', filters);
