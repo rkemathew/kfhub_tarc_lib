@@ -5,7 +5,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
 import { KFAuthService, KFFilterMetadata } from 'kfhub_lib';
-import { KFTarcTalentArchitectConstantsService } from './kftarc.talentarchitect-constants.service';
+import { KFTarcTalentArchitectConstantsService } from './kftarc.talent-architect-constants.service';
 
 @Injectable()
 export class KFTarcSuccessprofileService {

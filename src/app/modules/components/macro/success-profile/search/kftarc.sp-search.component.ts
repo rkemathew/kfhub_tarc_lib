@@ -8,14 +8,14 @@ import "rxjs/add/operator/distinctUntilChanged";
 import { SelectItem } from 'primeng/api';
 
 import { KFFilterMetadata as FilterMetadata } from 'kfhub_lib'
-import { KFTarcJobDescriptionService } from '../../../../services/kftarc.jobdescription.service';
+import { KFTarcSuccessprofileService as SuccessprofileService } from '../../../../services/kftarc.success-profile.service';
 
 @Component({
-    selector: 'kftarc-jdsearch',
-    templateUrl: './kftarc.jdsearch.component.html',
-    styleUrls: [ './kftarc.jdsearch.component.less' ]
+    selector: 'kftarc-spsearch',
+    templateUrl: './kftarc.sp-search.component.html',
+    styleUrls: [ './kftarc.sp-search.component.less' ]
 })
-export class KFTarcJDSearchComponent implements OnInit {
+export class KFTarcSPSearchComponent implements OnInit {
     private metadata: FilterMetadata[] = null;
 
     private searchControl = new FormControl();
@@ -57,7 +57,7 @@ export class KFTarcJDSearchComponent implements OnInit {
         });
 
     constructor(
-        private jobdescriptionService: KFTarcJobDescriptionService
+        private successprofileService: SuccessprofileService
     ) {
         this.searchControl.valueChanges
             .debounceTime(350)
@@ -72,7 +72,7 @@ export class KFTarcJDSearchComponent implements OnInit {
 //        this.getSubscriptions();
         this.refreshResults(true);
 
-        this.jobdescriptionService.getMetadata()
+        this.successprofileService.getMetadata()
             .subscribe((data: FilterMetadata[]) => {
                 this.metadata = data;
                 console.log('metadata', this.metadata);
@@ -121,7 +121,7 @@ export class KFTarcJDSearchComponent implements OnInit {
         this.searchQueueLength++;
         let queuePointer = this.searchQueueLength;
 
-        this.jobdescriptionService.searchProfile(this.searchString, this.appliedFilters, this.sorting, this.pageIndex, this.pageSize)
+        this.successprofileService.searchProfile(this.searchString, this.appliedFilters, this.sorting, this.pageIndex, this.pageSize)
             .subscribe((response) => {
                 this.searchCallback(response, resetResults, queuePointer);
                 this.searchLoading = false;
@@ -233,7 +233,7 @@ export class KFTarcJDSearchComponent implements OnInit {
     }
 
     loadMoreResults(page) {
-        if (page <= this.pagingInfo.totalPages) {
+        if (page < this.pagingInfo.totalPages) {
             this.pageIndex = page > 1 ? page - 1 : this.pageIndex++;
             this.refreshResults(false);
         }

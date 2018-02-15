@@ -5,12 +5,12 @@ import { TranslateModule } from '@ngx-translate/core';
 import { DropdownModule } from 'primeng/primeng';
 import { MultiSelectModule } from 'primeng/multiselect';
 
-import { KFTarcSPSearchComponent } from './components/macro/successprofile/search/kftarc.spsearch.component';
-import { KFTarcJDSearchComponent } from './components/macro/jobdescription/search/kftarc.jdsearch.component';
+import { KFTarcSPSearchComponent } from './components/macro/success-profile/search/kftarc.sp-search.component';
+import { KFTarcJDSearchComponent } from './components/macro/job-description/search/kftarc.jd-search.component';
 
-import { KFTarcSuccessprofileService } from './services/kftarc.successprofile.service';
-import { KFTarcJobDescriptionService } from './services/kftarc.jobdescription.service';
-import { KFTarcTalentArchitectConstantsService } from './services/kftarc.talentarchitect-constants.service';
+import { KFTarcSuccessprofileService } from './services/kftarc.success-profile.service';
+import { KFTarcJobDescriptionService } from './services/kftarc.job-description.service';
+import { KFTarcTalentArchitectConstantsService } from './services/kftarc.talent-architect-constants.service';
 import { KFTarcRoutesService } from './shared/services/kftarc.routes.service';
 
 import { KFTarcSandboxesModule } from './sandboxes/kftarc.sandboxes.module';

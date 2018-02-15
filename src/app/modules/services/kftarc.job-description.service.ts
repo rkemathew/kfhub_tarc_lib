@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { KFTarcSuccessprofileService } from './kftarc.successprofile.service';
-import { KFTarcTalentArchitectConstantsService } from './kftarc.talentarchitect-constants.service';
+import { KFTarcSuccessprofileService } from './kftarc.success-profile.service';
+import { KFTarcTalentArchitectConstantsService } from './kftarc.talent-architect-constants.service';
 import { KFAuthService } from 'kfhub_lib';
 
 @Injectable()

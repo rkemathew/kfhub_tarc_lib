@@ -4,7 +4,7 @@ import { Spinkit } from 'ng-http-loader/spinkits';
 
 import { KFRoutesService, KFAuthService, KFUtilsService, KFMenuItem } from 'kfhub_lib';
 import { KFTarcRoutesService } from './modules/shared/services/kftarc.routes.service';
-import { KFTarcSandboxMainComponent } from './modules/sandboxes/main/kftarc.sandboxmain.component';
+import { KFTarcSandboxMainComponent } from './modules/sandboxes/main/kftarc.sandbox-main.component';
 
 const INITIAL_ROUTE_PATH: string = 'tarc/sp/search';
 const DEFAULT_ROUTE_PATH: string = 'login';

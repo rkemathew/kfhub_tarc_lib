@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
     selector: 'kftarc-market-insights',
-    templateUrl: './kftarc.marketinsights.component.html',
-    styleUrls: [ './kftarc.marketinsights.component.less' ]
+    templateUrl: './kftarc.market-insights.component.html',
+    styleUrls: [ './kftarc.market-insights.component.less' ]
 })
 export class KFTarcMarketInsightsComponent implements OnInit {
     constructor() {}
