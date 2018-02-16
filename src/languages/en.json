@@ -36,5 +36,7 @@
     "Level": "LEVEL",
     "CreatedBy": "CREATED BY",
     "Date": "DATE",
-    "SPSearch_NoResults": "You have no Success Profiles."
+    "SPSearch_NoResults": "You have no Success Profiles.",
+    "SuccessProfileNA": "N/A",
+    "GradeLCase": "Grade"
 }

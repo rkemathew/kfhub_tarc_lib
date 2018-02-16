@@ -1,0 +1,17 @@
+<div class="col-lg-4 col-md-6 market-insights-container">
+    <!-- <div class="spgr-qinfo-col-title">{{ cardTitle }}</div> -->
+    <kf-grade-level-pie grade="{{ getGrade() }}" label="{{ getGradeLabel() | async }}"></kf-grade-level-pie>
+
+    <div class="spgr-qinfo-col-op-detail" *ngIf="pricedFacts">
+        <span class="spgr-qinfo-col-op-content" *ngFor="let fact of pricedFacts">
+            <!-- ng-if="fact.displayType.slice(0, 10) === 'PRICE_CARD'"
+            ng-repeat="fact in pricingData.pricedResults[0].pricedFacts"> -->
+            <span class="spgr-qinfo-col-op-text">
+                {{ fact.factName }}
+            </span>
+            <span class="spgr-qinfo-col-op-stat" >
+                {{ getFactDetails(fact) | async }}
+            </span>
+        </span>
+    </div>
+</div>
