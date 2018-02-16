@@ -38,8 +38,8 @@ export class KFTarcMarketInsightComponent extends KFTarcMarketInsightRawComponen
 
         this.getPricedFacts(this.jobRoleTypeId, this.standardHayGrade, this.countryId)
             .subscribe((pricedFacts: KFTarcPricedFact[]) => {
-                this.pricedFacts = pricedFacts;
-                console.log('this.pricedFacts', this.pricedFacts);
+                this.pricedFacts = pricedFacts; 
+                console.log('this.pricedFacts', this.pricedFacts); 
             });
     }
 
