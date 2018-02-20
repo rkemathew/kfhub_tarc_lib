@@ -4,7 +4,7 @@
   "license": "MIT",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "ng serve --proxy-config proxy.conf.json",
     "start:dev": "concurrently --kill-others \"ng serve\" \"npm run sync:assets\" \"npm run sync:languages\" \"npm run sync:less\"",
     "build": "ng build --prod --build-optimizer",
     "test": "ng test",

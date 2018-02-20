@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Observable } from 'Rxjs';
+import { environment } from '../../../../../../environments/environment';
 
 import "rxjs/add/operator/debounceTime";
 import "rxjs/add/operator/distinctUntilChanged";
@@ -16,6 +17,7 @@ import { KFTarcJobDescriptionService } from '../../../../services/kftarc.job-des
     styleUrls: [ './kftarc.jd-search.component.less' ]
 })
 export class KFTarcJDSearchComponent implements OnInit {
+    public  appUrlPrefix: string = environment().appUrlPrefix;
     private metadata: FilterMetadata[] = null;
 
     private searchControl = new FormControl();
