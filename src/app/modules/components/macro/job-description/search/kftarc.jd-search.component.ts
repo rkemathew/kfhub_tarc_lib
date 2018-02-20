@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Observable } from 'Rxjs';
-import { environment } from '../../../../../../environments/environment';
+// import { environment } from '../../../../../../environments/environment';
+import { environment } from 'kfhub_lib';
 
 import "rxjs/add/operator/debounceTime";
 import "rxjs/add/operator/distinctUntilChanged";
