@@ -18,35 +18,35 @@ import { KFTarcSuccessprofileService as SuccessprofileService } from '../../../.
     styleUrls: [ './kftarc.sp-search.component.less' ]
 })
 export class KFTarcSPSearchComponent implements OnInit {
-    public  appUrlPrefix: string = environment().appUrlPrefix;
-    private metadata: FilterMetadata[] = null;
+    appUrlPrefix: string = environment().appUrlPrefix;
+    metadata: FilterMetadata[] = null;
 
-    private searchControl = new FormControl();
-    private searchString: string = '';
-    private searchResults: Array<string> = [];
+    searchControl = new FormControl();
+    searchString: string = '';
+    searchResults: Array<string> = [];
 
-    private pagingInfo: any = null;
-    private pageIndex: number = 1;
-    private pageSize: number = 20;
+    pagingInfo: any = null;
+    pageIndex: number = 1;
+    pageSize: number = 20;
 
-    private sorting: Array<Object> = [];
-//    private subscriptions = null;
-    private searchLoading: boolean = false;
-    private searchQueueLength: number = 0;
-    private scrollingPageIndex: number = 0;
+    sorting: Array<Object> = [];
+//    subscriptions = null;
+    searchLoading: boolean = false;
+    searchQueueLength: number = 0;
+    scrollingPageIndex: number = 0;
 
-    private allGradesFilter: SelectItem[] = [];
-    private allLevelsFilter: SelectItem[] = [];
-    private allFunctionsFilter: SelectItem[] = [];
-    private selectedGradesFilter: FilterMetadata[] = [];
-    private selectedLevelsFilter: FilterMetadata[] = [];
-    private selectedFunctionsFilter: FilterMetadata[] = [];
-    private appliedFilters: FilterMetadata[] = [];
+    allGradesFilter: SelectItem[] = [];
+    allLevelsFilter: SelectItem[] = [];
+    allFunctionsFilter: SelectItem[] = [];
+    selectedGradesFilter: FilterMetadata[] = [];
+    selectedLevelsFilter: FilterMetadata[] = [];
+    selectedFunctionsFilter: FilterMetadata[] = [];
+    appliedFilters: FilterMetadata[] = [];
 
-    private cache: Array<number> = [];
-    private itemHeight: number = document.body.clientHeight - 100; // 40;
+    cache: Array<number> = [];
+    itemHeight: number = document.body.clientHeight - 100; // 40;
 
-    private pageByScroll$ = Observable.fromEvent(window, 'scroll')
+    pageByScroll$: any = Observable.fromEvent(window, 'scroll')
         .map(() => window.scrollY)
         .filter(current => current >=  document.body.clientHeight - window.innerHeight)
         .debounceTime(350) 
@@ -60,7 +60,7 @@ export class KFTarcSPSearchComponent implements OnInit {
         });
 
     constructor(
-        private successprofileService: SuccessprofileService
+        public successprofileService: SuccessprofileService
     ) {
         this.searchControl.valueChanges
             .debounceTime(350)
