@@ -73,7 +73,10 @@ export class KFTarcAppComponent implements OnInit {
 
     getKFTarcRoutes(): Route[] {
         let routes: Route[] = [
-            { path: 'sandboxmain', component: KFTarcSandboxMainComponent }
+            { path: 'sandboxmain', component: KFTarcSandboxMainComponent },
+            { path: 'orgp/pay/new', component: KFTarcSandboxMainComponent },
+            { path: 'orgp/orgsetup/leaderboard', component: KFTarcSandboxMainComponent },
+            { path: 'orgp/orgsurvey/surveyslist', component: KFTarcSandboxMainComponent }
         ];
 
         const kftarcRoutes: Route[] = this.kftarcRoutesService.getRoutes();
@@ -88,6 +91,6 @@ export class KFTarcAppComponent implements OnInit {
     onLogout(event) {
         console.log('In onLogout event handler in App Component');
         this.authService.removeSessionInfo();
-        this.router.navigate(['/login']);
+        this.router.navigate([ 'login' ]);
     }
 }
