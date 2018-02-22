@@ -8,7 +8,8 @@ import { KFAuthGuardService as AuthGuard, ɵe as KFExternalAppRouterComponent } 
 const routes: Route[] = [
     { path: 'tarc/sp/search', component: KFTarcSPSearchComponent, canActivate: [ AuthGuard ] },
     { path: 'tarc/jd/search', component: KFTarcJDSearchComponent, canActivate: [ AuthGuard ] },
-    { path: 'tacq/ap/projsearch', component: KFExternalAppRouterComponent, data: { externalRoutePath: 'talentacquisition/tacqprojectsearch'} }
+    { path: 'tacq/ap/projsearch', component: KFExternalAppRouterComponent, data: { externalRoutePath: 'talentacquisition/tacqprojectsearch'} },
+    { path: 'orgp/pay/new', component: KFExternalAppRouterComponent, data: { externalRoutePath: 'pay/new'} }
 ];
 
 @Injectable()
